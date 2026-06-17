@@ -1,0 +1,163 @@
+---
+// Copy TEXTUAL de la seccion 4 — "El Ciclo SDI". Iconos inline.
+const etapas = [
+  {
+    n: "1",
+    titulo: "Diseño y Consultoría Logística",
+    desc: "Análisis de procesos e indicadores, soluciones a medida, optimización del espacio y eliminación de cuellos de botella.",
+    icon: "design",
+  },
+  {
+    n: "2",
+    titulo: "Ingeniería de Sistemas",
+    desc: "Arquitecturas de automatización, control y software, integración con WMS/ERP e infraestructura escalable.",
+    icon: "engineering",
+  },
+  {
+    n: "3",
+    titulo: "Instalación y Puesta en Marcha",
+    desc: "Implementación por especialistas, pruebas y validación, y capacitación de los equipos.",
+    icon: "install",
+  },
+  {
+    n: "4",
+    titulo: "Soporte y Mantenimiento",
+    desc: "Soporte local en LATAM (mismo idioma y zona horaria), mantenimiento preventivo, gestión de repuestos y actualizaciones.",
+    icon: "support",
+  },
+];
+---
+
+<section class="section section--navy" id="servicios">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Servicios · El Ciclo SDI</span>
+      <h2 class="section-title">Un acompañamiento integral de principio a fin</h2>
+    </div>
+
+    <ol class="ciclo">
+      {
+        etapas.map((e, i) => (
+          <li class="ciclo__step" data-reveal style={`--reveal-delay:${i * 0.08}s`}>
+            <div class="ciclo__top">
+              <span class="ciclo__icon">
+                {e.icon === "design" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 21l3-1 11-11-2-2L4 18l-1 3z" />
+                    <path d="M14 7l3 3" />
+                    <path d="M3 3h6M3 3v6" />
+                  </svg>
+                )}
+                {e.icon === "engineering" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="3.2" />
+                    <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" />
+                  </svg>
+                )}
+                {e.icon === "install" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14.7 6.3a4 4 0 00-5.4 5.4l-6 6 2 2 6-6a4 4 0 005.4-5.4l-2.3 2.3-2-2 2.3-2.3z" />
+                  </svg>
+                )}
+                {e.icon === "support" && (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 13v-1a8 8 0 0116 0v1" />
+                    <path d="M4 13a2 2 0 012 2v2a2 2 0 01-2 2 1 1 0 01-1-1v-4a1 1 0 011-1zM20 13a2 2 0 00-2 2v2a2 2 0 002 2 1 1 0 001-1v-4a1 1 0 00-1-1z" />
+                    <path d="M18 19a4 4 0 01-4 3h-2" />
+                  </svg>
+                )}
+              </span>
+              <span class="ciclo__num">{e.n}</span>
+            </div>
+            <h3 class="ciclo__title">{e.titulo}</h3>
+            <p class="ciclo__desc">{e.desc}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .ciclo {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    counter-reset: step;
+  }
+
+  .ciclo__step {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+  }
+
+  /* Linea conectora entre etapas (desktop) */
+  .ciclo__step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 2.5rem;
+    right: -0.9rem;
+    width: 1.8rem;
+    height: 2px;
+    background: linear-gradient(90deg, var(--brand-gold), transparent);
+  }
+
+  .ciclo__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.1rem;
+  }
+
+  .ciclo__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: rgba(220, 154, 22, 0.16);
+    color: var(--brand-gold);
+  }
+
+  .ciclo__icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .ciclo__num {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.14);
+    line-height: 1;
+  }
+
+  .ciclo__title {
+    color: var(--white);
+    font-size: 1.08rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .ciclo__desc {
+    color: #b8bbc9;
+    font-size: 0.93rem;
+  }
+
+  @media (max-width: 940px) {
+    .ciclo {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .ciclo__step::after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .ciclo {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

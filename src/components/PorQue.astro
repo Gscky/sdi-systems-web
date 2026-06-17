@@ -1,0 +1,123 @@
+---
+// Copy TEXTUAL de la seccion 4 (diferenciadores).
+const motivos = [
+  {
+    titulo: "Respaldo y experiencia internacional",
+    desc: "Décadas de trayectoria y tecnología probada a nivel mundial.",
+  },
+  {
+    titulo: "Soporte local en LATAM",
+    desc: "Mismo idioma y zona horaria, cerca de tu operación.",
+  },
+  {
+    titulo: "Proyectos llave en mano",
+    desc: "Acompañamos de principio a fin, del diseño al soporte.",
+  },
+  {
+    titulo: "Soluciones modulares y escalables",
+    desc: "Crecen al ritmo de tu negocio.",
+  },
+  {
+    titulo: "Tecnología líder a nivel mundial",
+    desc: "Portafolio de las mejores marcas del mercado.",
+  },
+];
+---
+
+<section class="section" id="por-que">
+  <div class="container porque">
+    <div class="porque__intro">
+      <span class="eyebrow">¿Por qué elegirnos?</span>
+      <h2 class="section-title">
+        La experiencia global, con la cercanía de un socio local
+      </h2>
+      <p class="section-intro">
+        Combinamos tecnología líder a nivel mundial con un equipo que entiende
+        la realidad operativa de la región y te acompaña en cada etapa.
+      </p>
+      <a href="#contacto" class="btn btn-gold porque__cta">Conversemos tu proyecto</a>
+    </div>
+
+    <ul class="porque__list">
+      {
+        motivos.map((m, i) => (
+          <li class="porque__item" data-reveal style={`--reveal-delay:${i * 0.06}s`}>
+            <span class="porque__check" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6L9 17l-5-5" />
+              </svg>
+            </span>
+            <div>
+              <h3 class="porque__title">{m.titulo}</h3>
+              <p class="porque__desc">{m.desc}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .porque {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  .porque__cta {
+    margin-top: 1.75rem;
+  }
+
+  .porque__list {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .porque__item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.1rem;
+    border-radius: var(--radius-sm);
+    transition: background var(--t);
+  }
+
+  .porque__item:hover {
+    background: var(--bg-light);
+  }
+
+  .porque__check {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--brand-blue);
+    color: var(--white);
+  }
+
+  .porque__check svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .porque__title {
+    font-size: 1.08rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .porque__desc {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 860px) {
+    .porque {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

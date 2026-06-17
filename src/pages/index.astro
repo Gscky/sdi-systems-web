@@ -1,19 +1,28 @@
 ---
-// Placeholder temporal del Paso 1. En los siguientes pasos se reemplaza
-// por el Layout + todas las secciones del sitio SDI Systems.
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import SobreEmpresa from "../components/SobreEmpresa.astro";
+import Soluciones from "../components/Soluciones.astro";
+import Servicios from "../components/Servicios.astro";
+import Industrias from "../components/Industrias.astro";
+import Casos from "../components/Casos.astro";
+import PorQue from "../components/PorQue.astro";
+import Contacto from "../components/Contacto.astro";
+import Footer from "../components/Footer.astro";
 ---
 
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SDI Systems</title>
-  </head>
-  <body>
-    <main>
-      <h1>SDI Systems</h1>
-      <p>Sitio en construccion — scaffold de Astro listo (Paso 1).</p>
-    </main>
-  </body>
-</html>
+<Layout>
+  <Navbar />
+  <main>
+    <Hero />
+    <SobreEmpresa />
+    <Soluciones />
+    <Servicios />
+    <Industrias />
+    <Casos />
+    <PorQue />
+    <Contacto />
+  </main>
+  <Footer />
+</Layout>

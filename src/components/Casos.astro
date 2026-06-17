@@ -1,0 +1,247 @@
+---
+// Casos reales (fotos del PPT) + muro de logos de clientes.
+// Mapeo caso->texto y archivos segun INSTRUCCIONES seccion 12.
+const capacidades = [
+  "Ingeniería",
+  "Software",
+  "Controles",
+  "Fábrica",
+  "Soporte 24/7",
+  "Transporte y Clasificación",
+  "Almacenamiento y Picking",
+  "Consultoría",
+];
+
+const casos = [
+  {
+    cliente: "Dimerc",
+    logo: "/assets/clientes/dimerc.png",
+    foto: "/assets/img/casos/dimerc-picking-unidades.png",
+    solucion:
+      "Picking de cajas (torres de picking, pick-to-pallet, sorter a tiendas) y picking de unidades (pick-to-light, RF, balanza de validación).",
+  },
+  {
+    cliente: "Soprole",
+    logo: "/assets/clientes/soprole.png",
+    foto: "/assets/img/casos/soprole-picking.jpg",
+    solucion:
+      "Picking de cajas (pick-to-belt, sorter a tiendas) y picking de unidades (pick-to-light).",
+  },
+  {
+    cliente: "PF Alimentos",
+    logo: "/assets/clientes/pf-alimentos.png",
+    foto: "/assets/img/casos/pf-alimentos-layout.png",
+    solucion:
+      "5 torres de picking, sorter a rutas, sistemas para fresco (0–4°) y congelado (-28°), y transelevador de 740 posiciones (pallets).",
+  },
+];
+
+const clientes = [
+  { src: "/assets/clientes/dimerc.png", alt: "Dimerc" },
+  { src: "/assets/clientes/soprole.png", alt: "Soprole" },
+  { src: "/assets/clientes/pf-alimentos.png", alt: "PF Alimentos" },
+  { src: "/assets/clientes/ripley.png", alt: "Ripley" },
+  { src: "/assets/clientes/hites.png", alt: "Hites" },
+  { src: "/assets/clientes/belcorp.png", alt: "Belcorp" },
+  { src: "/assets/clientes/concha-y-toro.png", alt: "Concha y Toro" },
+  { src: "/assets/clientes/artel.png", alt: "Artel" },
+  { src: "/assets/clientes/chilexpress.png", alt: "Chilexpress" },
+  { src: "/assets/clientes/dimeiggs.png", alt: "Dimeiggs" },
+  { src: "/assets/clientes/dimerc-office.png", alt: "Dimerc Office" },
+  { src: "/assets/clientes/axo-chile.png", alt: "AXO Chile" },
+  { src: "/assets/clientes/dinet.png", alt: "Dinet" },
+  { src: "/assets/clientes/farmacias-peruanas.png", alt: "Farmacias Peruanas" },
+  { src: "/assets/clientes/renner.png", alt: "Renner" },
+  { src: "/assets/clientes/hering.jpg", alt: "Hering" },
+  { src: "/assets/clientes/levis.png", alt: "Levi's" },
+  { src: "/assets/clientes/alpargatas.jpg", alt: "Alpargatas" },
+  { src: "/assets/clientes/flexi.png", alt: "Flexi" },
+  { src: "/assets/clientes/farmacorp.jpg", alt: "Farmacorp" },
+  { src: "/assets/clientes/belleza-express.gif", alt: "Belleza Express" },
+  { src: "/assets/clientes/continental.png", alt: "Continental" },
+  { src: "/assets/clientes/bosch.png", alt: "Bosch" },
+  { src: "/assets/clientes/flex.png", alt: "Flex" },
+];
+---
+
+<section class="section section--light" id="casos">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Casos y Clientes</span>
+      <h2 class="section-title">Proyectos reales, resultados en operación</h2>
+      <p class="section-intro">
+        Capacidades de extremo a extremo — ingeniería, software, controles,
+        fábrica, transporte, almacenamiento, picking, consultoría y soporte —
+        aplicadas en centros de distribución de Chile y LATAM.
+      </p>
+    </div>
+
+    <ul class="caps" data-reveal>
+      {capacidades.map((c) => <li>{c}</li>)}
+    </ul>
+
+    <div class="grid grid-3 casos__grid">
+      {
+        casos.map((caso, i) => (
+          <article class="card casos__card" data-reveal style={`--reveal-delay:${i * 0.07}s`}>
+            <div class="casos__media">
+              <img src={caso.foto} alt={`Proyecto SDI Systems en ${caso.cliente}`} loading="lazy" />
+            </div>
+            <div class="casos__body">
+              <img class="casos__logo" src={caso.logo} alt={caso.cliente} loading="lazy" />
+              <h3 class="casos__name">{caso.cliente}</h3>
+              <p class="casos__sol">{caso.solucion}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="confian" data-reveal>
+      <h3 class="confian__title">Empresas que confían en nosotros</h3>
+      <ul class="confian__grid">
+        {
+          clientes.map((c) => (
+            <li>
+              <img src={c.src} alt={c.alt} loading="lazy" />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .caps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  }
+
+  .caps li {
+    background: var(--white);
+    border: 1px solid var(--line);
+    color: var(--brand-navy);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.45rem 0.95rem;
+    border-radius: 999px;
+  }
+
+  .casos__card {
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .casos__media {
+    aspect-ratio: 16 / 10;
+    background: var(--brand-navy);
+    overflow: hidden;
+  }
+
+  .casos__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .casos__card:hover .casos__media img {
+    transform: scale(1.05);
+  }
+
+  .casos__body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .casos__logo {
+    height: 30px;
+    width: auto;
+    max-width: 140px;
+    object-fit: contain;
+    object-position: left;
+    margin-bottom: 0.75rem;
+  }
+
+  .casos__name {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .casos__sol {
+    color: var(--muted);
+    font-size: 0.93rem;
+  }
+
+  /* Muro de logos */
+  .confian {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    text-align: center;
+  }
+
+  .confian__title {
+    font-size: 1.1rem;
+    color: var(--brand-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+  }
+
+  .confian__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .confian__grid li {
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.4rem 1.1rem;
+    min-height: 96px;
+  }
+
+  .confian__grid img {
+    max-height: 46px;
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.62;
+    transition: filter var(--t), opacity var(--t);
+  }
+
+  .confian__grid li:hover img {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+
+  @media (max-width: 880px) {
+    .confian__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .confian__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .confian__grid li {
+      padding: 1rem 0.8rem;
+      min-height: 78px;
+    }
+  }
+</style>

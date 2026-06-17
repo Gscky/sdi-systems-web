@@ -1,0 +1,158 @@
+---
+const year = new Date().getFullYear();
+
+const cols = [
+  {
+    title: "Soluciones",
+    links: [
+      { href: "#soluciones", label: "Sorters de alta velocidad" },
+      { href: "#soluciones", label: "Clasificación de cajas" },
+      { href: "#soluciones", label: "Robótica y AutoStore™" },
+      { href: "#soluciones", label: "Picking y consolidación" },
+    ],
+  },
+  {
+    title: "Empresa",
+    links: [
+      { href: "#empresa", label: "Sobre SDI Systems" },
+      { href: "#servicios", label: "El Ciclo SDI" },
+      { href: "#industrias", label: "Industrias" },
+      { href: "#casos", label: "Casos y clientes" },
+    ],
+  },
+];
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <div class="footer__logo">
+        <img src="/assets/logos/Iso.png" alt="" height="44" width="44" />
+        <span>SDI Systems</span>
+      </div>
+      <p>
+        Automatización e inteligencia logística para LATAM. Proyectos llave en
+        mano para centros de distribución, de principio a fin.
+      </p>
+    </div>
+
+    {
+      cols.map((col) => (
+        <nav class="footer__col" aria-label={col.title}>
+          <h4>{col.title}</h4>
+          <ul>
+            {col.links.map((l) => (
+              <li>
+                <a href={l.href}>{l.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ))
+    }
+
+    <div class="footer__col">
+      <h4>Contacto</h4>
+      <ul>
+        <!-- Datos de contacto: PLACEHOLDERS pendientes de Ariel -->
+        <li><a href="mailto:contacto@sdisystems.cl">contacto@sdisystems.cl</a></li>
+        <li><a href="https://wa.me/56900000000" rel="noopener">WhatsApp +56 9 0000 0000</a></li>
+        <li>Santiago, Chile · LATAM</li>
+      </ul>
+      <a href="#contacto" class="btn btn-gold footer__cta">Agenda una reunión</a>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <span>© {year} SDI Systems. Todos los derechos reservados.</span>
+      <span>Automatización e Intralogística · LATAM</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--brand-navy);
+    color: #b8bbc9;
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+    gap: 2.5rem;
+    padding-block: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .footer__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer__logo span {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: 0.01em;
+  }
+
+  .footer__brand p {
+    font-size: 0.95rem;
+    max-width: 34ch;
+  }
+
+  .footer__col h4 {
+    color: var(--white);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.1rem;
+  }
+
+  .footer__col ul {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .footer__col a {
+    color: #b8bbc9;
+    font-size: 0.95rem;
+  }
+
+  .footer__col a:hover {
+    color: var(--brand-gold);
+  }
+
+  .footer__cta {
+    margin-top: 1.25rem;
+  }
+
+  .footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer__bottom-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-block: 1.4rem;
+    font-size: 0.86rem;
+    color: #8a8d9c;
+  }
+
+  @media (max-width: 880px) {
+    .footer__inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

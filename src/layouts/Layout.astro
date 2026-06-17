@@ -1,0 +1,69 @@
+---
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/800.css";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "SDI Systems | Automatización e Inteligencia Logística para LATAM",
+  description = "SDI Systems diseña, integra e implementa soluciones de automatización e intralogística llave en mano para centros de distribución en Latinoamérica: sorters, AutoStore, AGVs, picking y consultoría.",
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/assets/logos/Iso.png" />
+
+    <!-- Open Graph / redes -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_LATAM" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/assets/logos/Logo1.png" />
+    <meta name="theme-color" content="#2C2C42" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      // Animaciones sutiles al hacer scroll (sin librerias).
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const items = document.querySelectorAll("[data-reveal]");
+
+      if (prefersReduced || !("IntersectionObserver" in window)) {
+        items.forEach((el) => el.classList.add("is-visible"));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+        );
+        items.forEach((el) => io.observe(el));
+      }
+    </script>
+  </body>
+</html>

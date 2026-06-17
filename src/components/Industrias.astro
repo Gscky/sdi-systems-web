@@ -1,0 +1,108 @@
+---
+// Copy TEXTUAL de la seccion 4.
+const industrias = [
+  {
+    nombre: "E-Commerce",
+    desc: "Miles de pedidos diarios con tiempos de entrega exigentes: almacenamiento automatizado, clasificación de alta velocidad y picking.",
+    icon: "cart",
+  },
+  {
+    nombre: "Moda y Textil (Apparel)",
+    desc: "Catálogos grandes con devoluciones y cambios: soluciones para prenda colgada y doblada.",
+    icon: "apparel",
+  },
+  {
+    nombre: "Grandes Cadenas de Retail",
+    desc: "Operación omnicanal: clasificación, secuenciación y consolidación para reposición en tienda.",
+    icon: "retail",
+  },
+  {
+    nombre: "Operadores Logísticos (3PL)",
+    desc: "Múltiples clientes: plataformas modulares y escalables.",
+    icon: "box",
+  },
+  {
+    nombre: "Consumo Masivo y Farmacéutico",
+    desc: "Volumen y trazabilidad: software más automatización con control en tiempo real.",
+    icon: "pharma",
+  },
+];
+
+const paths: Record<string, string> = {
+  cart: '<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h2.2l2.1 12.4a1.5 1.5 0 001.5 1.2h9.2a1.5 1.5 0 001.5-1.2L21 7H5.3"/>',
+  apparel: '<path d="M9 3l3 2 3-2 5 3-2 4-2-1v9H8v-9l-2 1-2-4 5-3z"/>',
+  retail: '<path d="M4 7l1-3h14l1 3"/><path d="M4 7h16v3a3 3 0 01-6 0 3 3 0 01-6 0 3 3 0 01-4 0V7z"/><path d="M5 11v9h14v-9"/>',
+  box: '<path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',
+  pharma: '<path d="M10.5 3.5l10 10a4 4 0 01-5.6 5.6l-10-10a4 4 0 015.6-5.6z"/><path d="M8 6l10 10"/>',
+};
+---
+
+<section class="section" id="industrias">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Industrias</span>
+      <h2 class="section-title">Soluciones Adaptadas a Cada Industria</h2>
+    </div>
+
+    <div class="ind__grid">
+      {
+        industrias.map((ind, i) => (
+          <article class="card ind__card" data-reveal style={`--reveal-delay:${i * 0.06}s`}>
+            <span class="icon-badge">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                set:html={paths[ind.icon]}
+              />
+            </span>
+            <h3 class="ind__title">{ind.nombre}</h3>
+            <p class="ind__desc">{ind.desc}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .ind__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* La 5a card centrada en su fila en desktop */
+  .ind__card:nth-child(4) {
+    grid-column: 1 / 2;
+  }
+
+  .ind__title {
+    font-size: 1.12rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .ind__desc {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 940px) {
+    .ind__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .ind__card:nth-child(4) {
+      grid-column: auto;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .ind__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

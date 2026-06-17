@@ -1,0 +1,161 @@
+---
+// Copy TEXTUAL de la seccion 4. Iconos inline (sin libreria).
+const categorias = [
+  {
+    n: "01",
+    titulo: "Clasificación Unitaria de Alta Velocidad (Sorters)",
+    items: [
+      {
+        nombre: "SORTRAK G4 (Bomb Bay)",
+        desc: "Tecnología propia de caída vertical para clasificación masiva ultraprecisa.",
+      },
+      {
+        nombre: "Tilt Tray Sorter",
+        desc: "Bandejas inclinables de alta resistencia, cargas variadas y flujos constantes.",
+      },
+      {
+        nombre: "Crossbelt Sorter",
+        desc: "Bandas cruzadas para paquetes, sobres, cajas y contenedores de distintos tamaños.",
+      },
+      {
+        nombre: "TableSort / T-Sort + 3DSort",
+        desc: "Alto volumen con pocas unidades por orden y reconfiguración rápida.",
+      },
+    ],
+  },
+  {
+    n: "02",
+    titulo: "Clasificación de Cajas y Contenedores",
+    items: [
+      {
+        nombre: "Narrow Belt Sorter (NBS)",
+        desc: "Desvíos en múltiples configuraciones.",
+      },
+      {
+        nombre: "Shoe Sorter",
+        desc: "Altas velocidades, cargas pesadas y máxima confiabilidad.",
+      },
+      {
+        nombre: "Crossbelt / Multibelt Sorter",
+        desc: "Velocidad, precisión y aprovechamiento del espacio.",
+      },
+    ],
+  },
+  {
+    n: "03",
+    titulo: "Robóticos y Sistemas de Secuenciación",
+    items: [
+      {
+        nombre: "AutoStore™",
+        desc: "Almacenamiento automatizado de mayor densidad del mercado.",
+      },
+      {
+        nombre: "Joey Pouch Sorter",
+        desc: "Clasificador de bolsas colgantes, ideal para e-commerce.",
+      },
+      {
+        nombre: "Enzo AGV",
+        desc: "Vehículos de guiado automático para transporte interno autónomo.",
+      },
+    ],
+  },
+  {
+    n: "04",
+    titulo: "Asistencia para Picking, Clasificación y Consolidación",
+    items: [
+      {
+        nombre: "Pack-to-Light / Put-to-Store",
+        desc: "Guiado por luz, reduce errores.",
+      },
+      {
+        nombre: "PTL (Pick-to-Light)",
+        desc: "Picking de alta rotación.",
+      },
+      {
+        nombre: "PTW (Put-to-Wall / Put-to-Light)",
+        desc: "Consolidación rápida y escalable para e-commerce.",
+      },
+    ],
+  },
+];
+---
+
+<section class="section section--light" id="soluciones">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Soluciones y Productos</span>
+      <h2 class="section-title">
+        Tecnología de Vanguardia para Centros de Distribución
+      </h2>
+      <p class="section-intro">
+        Nuestro portafolio integra tecnologías líderes a nivel mundial,
+        seleccionadas para responder con flexibilidad, eficiencia y
+        escalabilidad a las exigencias de los mercados actuales.
+      </p>
+    </div>
+
+    <div class="grid grid-4 sol__grid">
+      {
+        categorias.map((cat, i) => (
+          <article class="card sol__card" data-reveal style={`--reveal-delay:${i * 0.06}s`}>
+            <span class="sol__num">{cat.n}</span>
+            <h3 class="sol__title">{cat.titulo}</h3>
+            <ul class="sol__items">
+              {cat.items.map((it) => (
+                <li>
+                  <span class="sol__item-name">{it.nombre}</span>
+                  <span class="sol__item-desc">{it.desc}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .sol__card {
+    display: flex;
+    flex-direction: column;
+    border-top: 3px solid var(--brand-blue);
+  }
+
+  .sol__num {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--brand-gold);
+    letter-spacing: 0.05em;
+  }
+
+  .sol__title {
+    font-size: 1.12rem;
+    margin: 0.5rem 0 1.1rem;
+    line-height: 1.25;
+  }
+
+  .sol__items {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .sol__items li {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--line);
+  }
+
+  .sol__item-name {
+    font-weight: 600;
+    color: var(--brand-navy);
+    font-size: 0.96rem;
+  }
+
+  .sol__item-desc {
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin-top: 0.15rem;
+  }
+</style>
