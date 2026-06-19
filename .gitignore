@@ -10,3 +10,6 @@ dist/
 
 # material de referencia (no va al repo: pesa y es fuente, no código)
 referencias/
+
+# artefactos de revisión visual (screenshots/scripts locales)
+_review/
