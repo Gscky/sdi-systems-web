@@ -1,0 +1,152 @@
+---
+// Carrusel marquee de clientes — logos reales A COLOR, scroll infinito.
+// Lista canonica (24): 11 Chile + 13 LATAM segun INSTRUCCIONES seccion 12.
+// Cambios aplicados: +adidas (faltaba), -dimerc-office (duplicado de Dimerc).
+const clientes = [
+  // Chile
+  { src: "/assets/clientes/ripley.png", alt: "Ripley" },
+  { src: "/assets/clientes/dimerc.png", alt: "Dimerc" },
+  { src: "/assets/clientes/pf-alimentos.png", alt: "PF Alimentos" },
+  { src: "/assets/clientes/soprole.png", alt: "Soprole" },
+  { src: "/assets/clientes/hites.png", alt: "Hites" },
+  { src: "/assets/clientes/belcorp.png", alt: "Belcorp" },
+  { src: "/assets/clientes/concha-y-toro.png", alt: "Concha y Toro" },
+  { src: "/assets/clientes/artel.png", alt: "Artel" },
+  { src: "/assets/clientes/chilexpress.png", alt: "Chilexpress" },
+  { src: "/assets/clientes/dimeiggs.png", alt: "Dimeiggs" },
+  { src: "/assets/clientes/axo-chile.png", alt: "AXO Chile" },
+  // LATAM
+  { src: "/assets/clientes/dinet.png", alt: "Dinet" },
+  { src: "/assets/clientes/farmacias-peruanas.png", alt: "Farmacias Peruanas" },
+  { src: "/assets/clientes/renner.png", alt: "Renner" },
+  { src: "/assets/clientes/hering.jpg", alt: "Hering" },
+  { src: "/assets/clientes/levis.png", alt: "Levi's" },
+  { src: "/assets/clientes/alpargatas.jpg", alt: "Alpargatas" },
+  { src: "/assets/clientes/flexi.png", alt: "Flexi" },
+  { src: "/assets/clientes/adidas.png", alt: "adidas" },
+  { src: "/assets/clientes/farmacorp.jpg", alt: "Farmacorp" },
+  { src: "/assets/clientes/belleza-express.gif", alt: "Belleza Express" },
+  { src: "/assets/clientes/continental.png", alt: "Continental" },
+  { src: "/assets/clientes/bosch.png", alt: "Bosch" },
+  { src: "/assets/clientes/flex.png", alt: "Flex" },
+];
+---
+
+<section class="clientes" aria-label="Empresas que confían en SDI Systems">
+  <div class="container">
+    <p class="clientes__lead">Empresas que confían en nosotros</p>
+  </div>
+
+  <div class="marquee" data-marquee>
+    <ul class="marquee__track">
+      {
+        clientes.map((c) => (
+          <li class="marquee__item">
+            <img src={c.src} alt={c.alt} loading="lazy" decoding="async" />
+          </li>
+        ))
+      }
+    </ul>
+    <ul class="marquee__track" aria-hidden="true">
+      {
+        clientes.map((c) => (
+          <li class="marquee__item">
+            <img src={c.src} alt="" loading="lazy" decoding="async" />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .clientes {
+    padding-block: clamp(2.5rem, 5vw, 3.5rem);
+    border-bottom: 1px solid var(--line);
+    background: var(--white);
+  }
+
+  .clientes__lead {
+    text-align: center;
+    font-family: var(--font-head);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand-gray);
+    margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+  }
+
+  /* Pista doble para loop infinito sin costura */
+  .marquee {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+  }
+
+  .marquee__track {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 4.5rem);
+    padding-right: clamp(2.5rem, 6vw, 4.5rem);
+    min-width: max-content;
+    animation: marquee-scroll 60s linear infinite;
+  }
+
+  /* Pausa al hover (sobre todo el carrusel) */
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
+
+  .marquee__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .marquee__item img {
+    height: 38px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+    /* A COLOR — sin filtro grayscale */
+  }
+
+  @keyframes marquee-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  /* Accesibilidad: sin movimiento si el usuario lo pide */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      overflow-x: auto;
+    }
+    .marquee__track {
+      animation: none;
+    }
+    /* Evita duplicado visual cuando no hay scroll automatico */
+    .marquee__track[aria-hidden="true"] {
+      display: none;
+    }
+  }
+</style>
