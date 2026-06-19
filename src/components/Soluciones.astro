@@ -1,9 +1,11 @@
 ---
-// Copy TEXTUAL de la seccion 4. Iconos inline (sin libreria).
+// Explorador interactivo de soluciones (patron ARIA tabs).
+// Copy TEXTUAL: 4 familias / 13 productos (conservado del contenido original).
 const categorias = [
   {
     n: "01",
-    titulo: "Clasificación Unitaria de Alta Velocidad (Sorters)",
+    titulo: "Clasificación Unitaria de Alta Velocidad",
+    sub: "Sorters",
     items: [
       {
         nombre: "SORTRAK G4 (Bomb Bay)",
@@ -26,6 +28,7 @@ const categorias = [
   {
     n: "02",
     titulo: "Clasificación de Cajas y Contenedores",
+    sub: "Cajas y contenedores",
     items: [
       {
         nombre: "Narrow Belt Sorter (NBS)",
@@ -44,6 +47,7 @@ const categorias = [
   {
     n: "03",
     titulo: "Robóticos y Sistemas de Secuenciación",
+    sub: "Robótica",
     items: [
       {
         nombre: "AutoStore™",
@@ -62,6 +66,7 @@ const categorias = [
   {
     n: "04",
     titulo: "Asistencia para Picking, Clasificación y Consolidación",
+    sub: "Picking",
     items: [
       {
         nombre: "Pack-to-Light / Put-to-Store",
@@ -80,9 +85,10 @@ const categorias = [
 ];
 ---
 
-<section class="section section--light" id="soluciones">
+<section class="section section--light blueprint" id="soluciones">
   <div class="container">
     <div class="section-head section-head--center">
+      <span class="section-num">02</span>
       <span class="eyebrow">Soluciones y Productos</span>
       <h2 class="section-title">
         Tecnología de Vanguardia para Centros de Distribución
@@ -94,68 +100,303 @@ const categorias = [
       </p>
     </div>
 
-    <div class="grid grid-4 sol__grid">
-      {
-        categorias.map((cat, i) => (
-          <article class="card sol__card" data-reveal style={`--reveal-delay:${i * 0.06}s`}>
-            <span class="sol__num">{cat.n}</span>
-            <h3 class="sol__title">{cat.titulo}</h3>
-            <ul class="sol__items">
-              {cat.items.map((it) => (
-                <li>
-                  <span class="sol__item-name">{it.nombre}</span>
-                  <span class="sol__item-desc">{it.desc}</span>
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))
-      }
+    <div class="explorer">
+      <div class="explorer__tabs" role="tablist" aria-label="Familias de soluciones" aria-orientation="vertical">
+        {
+          categorias.map((cat, i) => (
+            <button
+              class:list={["explorer__tab", { "is-active": i === 0 }]}
+              role="tab"
+              id={`sol-tab-${i}`}
+              aria-selected={i === 0 ? "true" : "false"}
+              aria-controls={`sol-panel-${i}`}
+              tabindex={i === 0 ? "0" : "-1"}
+            >
+              <span class="explorer__tab-num">{cat.n}</span>
+              <span class="explorer__tab-text">
+                <span class="explorer__tab-title">{cat.titulo}</span>
+                <span class="explorer__tab-sub">{cat.sub}</span>
+              </span>
+              <svg class="explorer__tab-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="explorer__panels">
+        {
+          categorias.map((cat, i) => (
+            <div
+              class="explorer__panel"
+              role="tabpanel"
+              id={`sol-panel-${i}`}
+              aria-labelledby={`sol-tab-${i}`}
+              hidden={i !== 0}
+              tabindex="0"
+            >
+              <div class="explorer__detail">
+                <ul class="explorer__products">
+                  {cat.items.map((it) => (
+                    <li class="explorer__product">
+                      <span class="explorer__product-name">{it.nombre}</span>
+                      <span class="explorer__product-desc">{it.desc}</span>
+                    </li>
+                  ))}
+                </ul>
+                <figure class="explorer__media" aria-hidden="true">
+                  {/* Espacio para imagen del equipo — pendiente de assets del cliente */}
+                  <div class="explorer__media-ph">
+                    <span class="explorer__media-num">{cat.n}</span>
+                    <span class="explorer__media-cap">{cat.sub}</span>
+                  </div>
+                </figure>
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .sol__card {
-    display: flex;
-    flex-direction: column;
-    border-top: 3px solid var(--brand-blue);
+  .explorer {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.85fr) 1.4fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
   }
 
-  .sol__num {
-    font-size: 0.95rem;
-    font-weight: 800;
-    color: var(--brand-gold);
+  /* --- Selector (tabs) --- */
+  .explorer__tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .explorer__tab {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    text-align: left;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.15rem;
+    cursor: pointer;
+    color: var(--brand-navy);
+    transition: border-color var(--t), background var(--t), box-shadow var(--t);
+  }
+
+  .explorer__tab:hover {
+    border-color: var(--brand-blue);
+  }
+
+  .explorer__tab.is-active {
+    background: var(--brand-navy);
+    border-color: var(--brand-navy);
+    box-shadow: var(--shadow);
+  }
+
+  .explorer__tab-num {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--brand-blue);
     letter-spacing: 0.05em;
   }
 
-  .sol__title {
-    font-size: 1.12rem;
-    margin: 0.5rem 0 1.1rem;
-    line-height: 1.25;
+  .explorer__tab.is-active .explorer__tab-num {
+    color: var(--brand-gold);
   }
 
-  .sol__items {
-    display: grid;
-    gap: 0.9rem;
-  }
-
-  .sol__items li {
+  .explorer__tab-text {
     display: flex;
     flex-direction: column;
-    padding-left: 0.9rem;
+    gap: 0.1rem;
+    flex: 1;
+  }
+
+  .explorer__tab-title {
+    font-family: var(--font-head);
+    font-weight: 500;
+    font-size: 0.98rem;
+    line-height: 1.2;
+  }
+
+  .explorer__tab-sub {
+    font-size: 0.8rem;
+    color: var(--brand-gray);
+  }
+
+  .explorer__tab.is-active .explorer__tab-title {
+    color: var(--white);
+  }
+
+  .explorer__tab.is-active .explorer__tab-sub {
+    color: #aeb2bf;
+  }
+
+  .explorer__tab-arrow {
+    width: 18px;
+    height: 18px;
+    color: var(--brand-gray);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity var(--t), transform var(--t);
+  }
+
+  .explorer__tab.is-active .explorer__tab-arrow {
+    color: var(--brand-gold);
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* --- Panel de detalle --- */
+  .explorer__panel:focus-visible {
+    outline: 3px solid var(--brand-gold);
+    outline-offset: 4px;
+    border-radius: var(--radius);
+  }
+
+  .explorer__detail {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(1.25rem, 3vw, 2rem);
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--brand-blue);
+    border-radius: var(--radius);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .explorer__products {
+    display: grid;
+    gap: 1.1rem;
+    align-content: start;
+  }
+
+  .explorer__product {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
     border-left: 2px solid var(--line);
   }
 
-  .sol__item-name {
-    font-weight: 600;
+  .explorer__product-name {
+    font-family: var(--font-head);
+    font-weight: 500;
     color: var(--brand-navy);
-    font-size: 0.96rem;
+    font-size: 1rem;
   }
 
-  .sol__item-desc {
+  .explorer__product-desc {
     color: var(--muted);
-    font-size: 0.88rem;
-    margin-top: 0.15rem;
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+  }
+
+  /* Placeholder de imagen de equipo */
+  .explorer__media {
+    margin: 0;
+  }
+
+  .explorer__media-ph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    height: 100%;
+    min-height: 220px;
+    border-radius: var(--radius-sm);
+    background:
+      linear-gradient(135deg, var(--brand-navy), var(--brand-navy-deep));
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .explorer__media-ph::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .explorer__media-num {
+    position: relative;
+    font-family: var(--font-head);
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--brand-gold);
+    line-height: 1;
+  }
+
+  .explorer__media-cap {
+    position: relative;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c8cbd4;
+  }
+
+  @media (max-width: 860px) {
+    .explorer {
+      grid-template-columns: 1fr;
+    }
+    .explorer__tab-arrow {
+      display: none;
+    }
+    .explorer__detail {
+      grid-template-columns: 1fr;
+    }
+    .explorer__media {
+      order: -1;
+    }
+    .explorer__media-ph {
+      min-height: 150px;
+    }
   }
 </style>
+
+<script>
+  // Patron ARIA tabs con tabindex itinerante (roving) + flechas/Home/End.
+  document.querySelectorAll<HTMLElement>("#soluciones .explorer").forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+
+    function select(index: number, setFocus = true) {
+      tabs.forEach((tab, i) => {
+        const active = i === index;
+        tab.setAttribute("aria-selected", String(active));
+        tab.tabIndex = active ? 0 : -1;
+        tab.classList.toggle("is-active", active);
+        panels[i].hidden = !active;
+      });
+      if (setFocus) tabs[index].focus();
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => select(i, false));
+      tab.addEventListener("keydown", (e) => {
+        let next = -1;
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") next = (i + 1) % tabs.length;
+        else if (e.key === "ArrowUp" || e.key === "ArrowLeft") next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === "Home") next = 0;
+        else if (e.key === "End") next = tabs.length - 1;
+        if (next >= 0) {
+          e.preventDefault();
+          select(next);
+        }
+      });
+    });
+  });
+</script>
