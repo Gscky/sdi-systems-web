@@ -103,9 +103,12 @@ h4 {
   letter-spacing: -0.015em;
 }
 
+/* Anillo de foco doble: visible sobre fondos claros Y oscuros
+   (halo navy contrasta sobre blanco; borde dorado contrasta sobre navy) */
 :focus-visible {
-  outline: 3px solid var(--brand-gold);
+  outline: 2px solid var(--brand-gold);
   outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(52, 56, 67, 0.65);
   border-radius: 4px;
 }
 
@@ -153,7 +156,7 @@ h4 {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--brand-blue);
+  color: var(--brand-blue-dark); /* AA sobre blanco (texto pequeño) */
   margin-bottom: 0.75rem;
 }
 
@@ -300,7 +303,7 @@ h4 {
   font-weight: 600;
   font-size: 0.8rem;
   letter-spacing: 0.14em;
-  color: var(--brand-gray);
+  color: var(--muted); /* AA sobre blanco (el gris de marca falla en texto pequeño) */
   margin-bottom: 0.65rem;
 }
 
