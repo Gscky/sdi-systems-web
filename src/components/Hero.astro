@@ -1,6 +1,13 @@
 ---
-// Hero con video de fondo. Archivos en public/assets/video/.
-// El logo SDI NO va aqui (queda en el navbar).
+// Hero con video de fondo de procesos reales.
+// EL VIDEO DEFINITIVO LO PROVEE EL CLIENTE: reemplazar el <source> y el poster.
+// Por ahora el contenedor queda preparado con hero-loop.mp4 + poster placeholder.
+const metricas = [
+  // MÉTRICAS placeholder — confirmar cifras reales con Ariel.
+  { valor: "+30", label: "Años de experiencia internacional" },
+  { valor: "+24", label: "Marcas líderes confían en SDI" },
+  { valor: "100%", label: "Proyectos llave en mano" },
+];
 ---
 
 <section class="hero" id="top">
@@ -11,31 +18,46 @@
     loop
     playsinline
     poster="/assets/video/hero-poster.jpg"
+    aria-hidden="true"
   >
+    <!-- Placeholder: el cliente entrega el video final de procesos reales -->
     <source src="/assets/video/hero-loop.mp4" type="video/mp4" />
   </video>
 
   <div class="hero__scrim" aria-hidden="true"></div>
 
   <div class="container hero__content">
-    <h1 class="hero__title" data-reveal>
+    <span class="hero__eyebrow" data-reveal>Automatización · Intralogística · LATAM</span>
+    <h1 class="hero__title" data-reveal style="--reveal-delay:.06s">
       Automatización e <span class="hero__hl">Inteligencia Logística</span> para
       LATAM
     </h1>
-    <p class="hero__subtitle" data-reveal style="--reveal-delay:.1s">
-      Transformamos operaciones logísticas en ventajas competitivas.
+    <p class="hero__subtitle" data-reveal style="--reveal-delay:.14s">
+      Diseñamos, integramos e implementamos centros de distribución llave en
+      mano. Transformamos operaciones logísticas en ventajas competitivas.
     </p>
-    <div class="hero__cta" data-reveal style="--reveal-delay:.2s">
+    <div class="hero__cta" data-reveal style="--reveal-delay:.22s">
       <a href="#contacto" class="btn btn-gold">Contáctanos</a>
       <a href="#soluciones" class="btn btn-outline">Ver soluciones</a>
     </div>
+
+    <dl class="hero__metrics" data-reveal style="--reveal-delay:.3s">
+      {
+        metricas.map((m) => (
+          <div class="hero__metric">
+            <dt class="hero__metric-num">{m.valor}</dt>
+            <dd class="hero__metric-label">{m.label}</dd>
+          </div>
+        ))
+      }
+    </dl>
   </div>
 </section>
 
 <style>
   .hero {
     position: relative;
-    min-height: 92vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     padding-top: var(--nav-h);
@@ -52,33 +74,44 @@
     z-index: 0;
   }
 
-  /* Scrim oscuro para legibilidad del texto */
+  /* Scrim oscuro (navy de marca) para legibilidad del texto */
   .hero__scrim {
     position: absolute;
     inset: 0;
     z-index: 1;
     background: linear-gradient(
       105deg,
-      rgba(20, 25, 35, 0.85) 0%,
-      rgba(20, 25, 35, 0.55) 45%,
-      rgba(20, 25, 35, 0.15) 100%
+      rgba(42, 45, 54, 0.92) 0%,
+      rgba(42, 45, 54, 0.6) 45%,
+      rgba(42, 45, 54, 0.2) 100%
     );
   }
 
   .hero__content {
     position: relative;
     z-index: 2;
-    max-width: 820px;
-    padding-block: clamp(2.5rem, 6vw, 4rem);
+    max-width: 880px;
+    padding-block: clamp(3rem, 8vw, 5.5rem);
+  }
+
+  .hero__eyebrow {
+    display: inline-block;
+    font-family: var(--font-head);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brand-gold);
+    margin-bottom: 1.1rem;
   }
 
   .hero__title {
     color: var(--white);
-    font-size: clamp(2.1rem, 6vw, 4rem);
-    font-weight: 800;
-    line-height: 1.06;
-    max-width: 16ch;
-    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+    font-size: clamp(2.3rem, 6.2vw, 4.4rem);
+    font-weight: 700;
+    line-height: 1.04;
+    max-width: 17ch;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.32);
   }
 
   .hero__hl {
@@ -86,18 +119,46 @@
   }
 
   .hero__subtitle {
-    margin-top: 1.25rem;
-    font-size: clamp(1.05rem, 2.4vw, 1.4rem);
-    color: #eef0f6;
-    max-width: 46ch;
+    margin-top: 1.4rem;
+    font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+    color: #e9ebf1;
+    max-width: 52ch;
+    line-height: 1.55;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
   }
 
   .hero__cta {
-    margin-top: 2rem;
+    margin-top: 2.2rem;
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+  /* Métricas sobre el scrim */
+  .hero__metrics {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: clamp(1.5rem, 5vw, 3.5rem);
+    justify-content: start;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    padding-top: 1.75rem;
+  }
+
+  .hero__metric-num {
+    font-family: var(--font-head);
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .hero__metric-label {
+    margin-top: 0.45rem;
+    font-size: 0.86rem;
+    color: #c8cbd4;
+    max-width: 18ch;
+    line-height: 1.35;
   }
 
   /* En movil: scrim mas opaco para asegurar legibilidad */
@@ -105,10 +166,18 @@
     .hero__scrim {
       background: linear-gradient(
         160deg,
-        rgba(20, 25, 35, 0.92) 0%,
-        rgba(20, 25, 35, 0.78) 50%,
-        rgba(20, 25, 35, 0.6) 100%
+        rgba(42, 45, 54, 0.94) 0%,
+        rgba(42, 45, 54, 0.82) 50%,
+        rgba(42, 45, 54, 0.66) 100%
       );
+    }
+
+    .hero__metrics {
+      gap: 1.25rem 1.5rem;
+    }
+
+    .hero__metric-label {
+      font-size: 0.78rem;
     }
   }
 </style>
