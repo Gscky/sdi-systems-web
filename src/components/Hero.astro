@@ -1,7 +1,7 @@
 ---
-// Hero con video de fondo de procesos reales.
-// EL VIDEO DEFINITIVO LO PROVEE EL CLIENTE: reemplazar el <source> y el poster.
-// Por ahora el contenedor queda preparado con hero-loop.mp4 + poster placeholder.
+// Hero con video de fondo real (procesos reales del cliente) + marca de agua.
+// El video (11 MB) se carga por JS solo en desktop y sin prefers-reduced-motion;
+// en movil / reduced-motion se muestra solo el poster (frame fijo).
 const metricas = [
   // MÉTRICAS placeholder — confirmar cifras reales con Ariel.
   { valor: "+30", label: "Años de experiencia internacional" },
@@ -17,14 +17,19 @@ const metricas = [
     muted
     loop
     playsinline
-    poster="/assets/video/hero-poster.jpg"
+    preload="none"
+    poster="/assets/video/hero-sorter-poster.jpg"
     aria-hidden="true"
+    data-hero-video
+    data-src="/assets/video/hero-sorter.mp4"
   >
-    <!-- Placeholder: el cliente entrega el video final de procesos reales -->
-    <source src="/assets/video/hero-loop.mp4" type="video/mp4" />
   </video>
 
   <div class="hero__scrim" aria-hidden="true"></div>
+
+  <div class="hero__watermark" aria-hidden="true">
+    <img src="/assets/logos/Logo2.png" alt="" width="1570" height="672" loading="lazy" />
+  </div>
 
   <div class="container hero__content">
     <span class="hero__eyebrow" data-reveal>Automatización · Intralogística · LATAM</span>
@@ -63,6 +68,7 @@ const metricas = [
     padding-top: var(--nav-h);
     overflow: hidden;
     color: var(--white);
+    background: var(--brand-navy-deep);
   }
 
   .hero__video {
@@ -71,6 +77,7 @@ const metricas = [
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     z-index: 0;
   }
 
@@ -83,13 +90,41 @@ const metricas = [
       105deg,
       rgba(42, 45, 54, 0.92) 0%,
       rgba(42, 45, 54, 0.6) 45%,
-      rgba(42, 45, 54, 0.2) 100%
+      rgba(42, 45, 54, 0.25) 100%
     );
+  }
+
+  /* Marca de agua: logo gris, centrado, detras del texto y sobre el scrim */
+  .hero__watermark {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0.15;
+    animation: hero-wm-fade 1.5s ease both;
+  }
+
+  .hero__watermark img {
+    width: clamp(320px, 58vw, 720px);
+    height: auto;
+    filter: grayscale(1) brightness(1.6);
+  }
+
+  @keyframes hero-wm-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.15;
+    }
   }
 
   .hero__content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     max-width: 880px;
     padding-block: clamp(3rem, 8vw, 5.5rem);
   }
@@ -172,6 +207,10 @@ const metricas = [
       );
     }
 
+    .hero__watermark img {
+      width: clamp(260px, 75vw, 420px);
+    }
+
     .hero__metrics {
       gap: 1.25rem 1.5rem;
     }
@@ -180,4 +219,36 @@ const metricas = [
       font-size: 0.78rem;
     }
   }
+
+  /* Sin animacion si el usuario lo pide */
+  @media (prefers-reduced-motion: reduce) {
+    .hero__watermark {
+      animation: none;
+      opacity: 0.15;
+    }
+  }
 </style>
+
+<script>
+  // Carga el video solo en desktop y sin prefers-reduced-motion.
+  // En movil / reduced-motion queda el poster (evita bajar ~11 MB).
+  const video = document.querySelector<HTMLVideoElement>("[data-hero-video]");
+  if (video) {
+    const wantsVideo =
+      window.matchMedia("(min-width: 768px)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (wantsVideo) {
+      const src = video.dataset.src;
+      if (src) {
+        const source = document.createElement("source");
+        source.src = src;
+        source.type = "video/mp4";
+        video.appendChild(source);
+        video.load();
+        // Algunos navegadores requieren play() explicito tras inyectar source
+        video.play?.().catch(() => {});
+      }
+    }
+  }
+</script>
