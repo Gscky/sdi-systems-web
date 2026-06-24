@@ -70,16 +70,26 @@ Buscar los marcadores en el código:
 
 ## Despliegue
 
-Sitio estático: compatible con **Vercel**, **Netlify** o **Cloudflare Pages** (deploy automático desde el repo). Build command: `npm run build` · Output: `dist/`.
+**En producción:** 🌐 https://sdi-systems-web.vercel.app
+
+Desplegado en **Vercel** (proyecto `sdi-systems-web`), con **auto-deploy** conectado al repo `Gscky/sdi-systems-web`: cada push a `main` de ese repo genera un nuevo deploy. Build command: `npm run build` · Output: `dist/` (Vercel autodetecta Astro). `referencias/` se excluye vía `.vercelignore`.
 
 ## Git
 
-Repo: `https://github.com/in-evogit/iso` (org `in-evogit`). Este repo usa una identidad git **local** propia de InEvolution (no afecta la configuración global de tu máquina).
+Este proyecto vive en **dos repos** (mismo código):
+
+- **`origin`** → `https://github.com/in-evogit/iso` — repo del equipo (org `in-evogit`, identidad git local `in-evogit`).
+- **`gscky`** → `https://github.com/Gscky/sdi-systems-web` — copia personal que alimenta el deploy en Vercel.
 
 ```bash
-git pull            # traer cambios del equipo
-git add . && git commit -m "..."   # commitear
-git push            # subir
+# Actualizar el deploy (repo personal Gscky → Vercel auto-deploya):
+gh auth switch --user Gscky          # cuenta activa = Gscky
+git push gscky main
+
+# Actualizar el repo del equipo (in-evogit):
+gh auth switch --user in-evogit      # cuenta activa = in-evogit
+git push origin main
 ```
 
+> Hay varias cuentas de GitHub en `gh`. La **cuenta activa** debe coincidir con el repo al que empujas (Gscky tiene acceso a su repo; in-evogit al suyo).
 > `referencias/` (material fuente pesado: PPT, extracciones) está en `.gitignore` y no se versiona.
