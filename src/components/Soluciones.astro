@@ -1,6 +1,9 @@
 ---
 // Explorador interactivo de soluciones (patron ARIA tabs).
-// Copy TEXTUAL: 4 familias / 13 productos (conservado del contenido original).
+// Copy TEXTUAL conservado del contenido original.
+// Cada producto puede tener `video` (mp4 optimizado en /assets/video/equipos/);
+// al seleccionarlo se reproduce en el bloque de media del panel. Si no hay video
+// se muestra el placeholder (manteniendo la simetria del bloque).
 const categorias = [
   {
     n: "01",
@@ -10,18 +13,17 @@ const categorias = [
       {
         nombre: "SORTRAK G4 (Bomb Bay)",
         desc: "Tecnología propia de caída vertical para clasificación masiva ultraprecisa.",
-      },
-      {
-        nombre: "Tilt Tray Sorter",
-        desc: "Bandejas inclinables de alta resistencia, cargas variadas y flujos constantes.",
+        video: "/assets/video/equipos/sortrak.mp4",
       },
       {
         nombre: "Crossbelt Sorter",
         desc: "Bandas cruzadas para paquetes, sobres, cajas y contenedores de distintos tamaños.",
+        video: null,
       },
       {
         nombre: "TableSort / T-Sort + 3DSort",
         desc: "Alto volumen con pocas unidades por orden y reconfiguración rápida.",
+        video: "/assets/video/equipos/tsort.mp4",
       },
     ],
   },
@@ -33,14 +35,17 @@ const categorias = [
       {
         nombre: "Narrow Belt Sorter (NBS)",
         desc: "Desvíos en múltiples configuraciones.",
+        video: "/assets/video/equipos/nbs.mp4",
       },
       {
         nombre: "Shoe Sorter",
         desc: "Altas velocidades, cargas pesadas y máxima confiabilidad.",
+        video: "/assets/video/equipos/shoesorter.mp4",
       },
       {
         nombre: "Crossbelt / Multibelt Sorter",
         desc: "Velocidad, precisión y aprovechamiento del espacio.",
+        video: null,
       },
     ],
   },
@@ -52,14 +57,17 @@ const categorias = [
       {
         nombre: "AutoStore™",
         desc: "Almacenamiento automatizado de mayor densidad del mercado.",
+        video: "/assets/video/equipos/as.mp4",
       },
       {
         nombre: "Joey Pouch Sorter",
         desc: "Clasificador de bolsas colgantes, ideal para e-commerce.",
+        video: "/assets/video/equipos/joey.mp4",
       },
       {
         nombre: "Enzo AGV",
         desc: "Vehículos de guiado automático para transporte interno autónomo.",
+        video: "/assets/video/equipos/enzo.mp4",
       },
     ],
   },
@@ -71,14 +79,17 @@ const categorias = [
       {
         nombre: "Pack-to-Light / Put-to-Store",
         desc: "Guiado por luz, reduce errores.",
+        video: null,
       },
       {
         nombre: "PTL (Pick-to-Light)",
         desc: "Picking de alta rotación.",
+        video: null,
       },
       {
         nombre: "PTW (Put-to-Wall / Put-to-Light)",
         desc: "Consolidación rápida y escalable para e-commerce.",
+        video: null,
       },
     ],
   },
@@ -135,18 +146,41 @@ const categorias = [
               hidden={i !== 0}
               tabindex="0"
             >
-              <div class="explorer__detail">
+              <div class="explorer__detail" data-explorer-detail>
                 <ul class="explorer__products">
-                  {cat.items.map((it) => (
-                    <li class="explorer__product">
-                      <span class="explorer__product-name">{it.nombre}</span>
-                      <span class="explorer__product-desc">{it.desc}</span>
+                  {cat.items.map((it, j) => (
+                    <li>
+                      <button
+                        type="button"
+                        class:list={["explorer__product", { "is-selected": j === 0 }]}
+                        data-product
+                        data-video={it.video ?? ""}
+                        aria-pressed={j === 0 ? "true" : "false"}
+                      >
+                        <span class="explorer__product-name">
+                          {it.nombre}
+                          {it.video && (
+                            <svg class="explorer__product-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          )}
+                        </span>
+                        <span class="explorer__product-desc">{it.desc}</span>
+                      </button>
                     </li>
                   ))}
                 </ul>
-                <figure class="explorer__media" aria-hidden="true">
-                  {/* Espacio para imagen del equipo — pendiente de assets del cliente */}
-                  <div class="explorer__media-ph">
+                <figure class="explorer__media">
+                  <video
+                    class="explorer__video"
+                    data-media-video
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                    hidden
+                  />
+                  <div class="explorer__media-ph" data-media-ph>
                     <span class="explorer__media-num">{cat.n}</span>
                     <span class="explorer__media-cap">{cat.sub}</span>
                   </div>
@@ -282,21 +316,73 @@ const categorias = [
   .explorer__product {
     display: flex;
     flex-direction: column;
-    padding-left: 1rem;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: 0;
     border-left: 2px solid var(--line);
+    padding: 0.3rem 0.6rem 0.3rem 1rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    cursor: pointer;
+    transition: border-color var(--t), background var(--t);
+  }
+
+  .explorer__product:hover {
+    background: var(--bg-light);
+    border-left-color: var(--brand-blue);
+  }
+
+  .explorer__product.is-selected {
+    border-left-color: var(--brand-gold);
+    background: var(--bg-light);
+  }
+
+  .explorer__product:focus-visible {
+    outline: 3px solid var(--brand-gold);
+    outline-offset: 2px;
   }
 
   .explorer__product-name {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
     font-family: var(--font-head);
     font-weight: 500;
     color: var(--brand-navy);
     font-size: 1rem;
   }
 
+  .explorer__product-play {
+    width: 14px;
+    height: 14px;
+    color: var(--brand-blue);
+    flex-shrink: 0;
+  }
+
   .explorer__product-desc {
     color: var(--muted);
     font-size: 0.9rem;
     margin-top: 0.2rem;
+  }
+
+  /* Video del producto — llena el bloque de media manteniendo su alto */
+  .explorer__media {
+    position: relative;
+  }
+
+  .explorer__video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background: var(--brand-navy);
+  }
+
+  .explorer__video[hidden] {
+    display: none;
   }
 
   /* Placeholder de imagen de equipo */
@@ -368,9 +454,48 @@ const categorias = [
 
 <script>
   // Patron ARIA tabs con tabindex itinerante (roving) + flechas/Home/End.
+  // Ademas: al seleccionar un producto se reproduce su video en el bloque de
+  // media del panel (sin cambiar de pestaña). Sin video -> placeholder.
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   document.querySelectorAll<HTMLElement>("#soluciones .explorer").forEach((root) => {
     const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
     const panels = Array.from(root.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+
+    function applyMedia(panel: HTMLElement, play: boolean) {
+      const video = panel.querySelector<HTMLVideoElement>("[data-media-video]");
+      const ph = panel.querySelector<HTMLElement>("[data-media-ph]");
+      const products = Array.from(panel.querySelectorAll<HTMLButtonElement>("[data-product]"));
+      const sel = products.find((p) => p.classList.contains("is-selected")) || products[0];
+      const src = sel?.getAttribute("data-video") || "";
+      if (src && video) {
+        if (video.getAttribute("src") !== src) video.setAttribute("src", src);
+        video.hidden = false;
+        if (ph) ph.style.display = "none";
+        if (play) video.play().catch(() => {});
+      } else {
+        if (video) {
+          video.pause();
+          video.hidden = true;
+        }
+        if (ph) ph.style.display = "";
+      }
+    }
+
+    // Click en producto -> selecciona y reproduce su video
+    panels.forEach((panel) => {
+      const products = Array.from(panel.querySelectorAll<HTMLButtonElement>("[data-product]"));
+      products.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          products.forEach((p) => {
+            const on = p === btn;
+            p.classList.toggle("is-selected", on);
+            p.setAttribute("aria-pressed", String(on));
+          });
+          applyMedia(panel, true);
+        });
+      });
+    });
 
     function select(index: number, setFocus = true) {
       tabs.forEach((tab, i) => {
@@ -379,7 +504,9 @@ const categorias = [
         tab.tabIndex = active ? 0 : -1;
         tab.classList.toggle("is-active", active);
         panels[i].hidden = !active;
+        if (!active) panels[i].querySelector<HTMLVideoElement>("[data-media-video]")?.pause();
       });
+      applyMedia(panels[index], !reduce);
       if (setFocus) tabs[index].focus();
     }
 
@@ -397,5 +524,8 @@ const categorias = [
         }
       });
     });
+
+    // Estado inicial: el panel visible muestra (y reproduce) su video seleccionado
+    applyMedia(panels[0], !reduce);
   });
 </script>

@@ -1,34 +1,30 @@
 ---
 // Carrusel marquee de clientes — logos reales A COLOR, scroll infinito.
-// Lista canonica (24): 11 Chile + 13 LATAM segun INSTRUCCIONES seccion 12.
-// Cambios aplicados: +adidas (faltaba), -dimerc-office (duplicado de Dimerc).
+// Lista actualizada (22) con los logos entregados por el cliente (jul-2026),
+// todos PNG del mismo tamaño en /assets/clientes-2/.
 const clientes = [
-  // Chile
-  { src: "/assets/clientes/ripley.png", alt: "Ripley" },
-  { src: "/assets/clientes/dimerc.png", alt: "Dimerc" },
-  { src: "/assets/clientes/pf-alimentos.png", alt: "PF Alimentos" },
-  { src: "/assets/clientes/soprole.png", alt: "Soprole" },
-  { src: "/assets/clientes/hites.png", alt: "Hites" },
-  { src: "/assets/clientes/belcorp.png", alt: "Belcorp" },
-  { src: "/assets/clientes/concha-y-toro.png", alt: "Concha y Toro" },
-  { src: "/assets/clientes/artel.png", alt: "Artel" },
-  { src: "/assets/clientes/chilexpress.png", alt: "Chilexpress" },
-  { src: "/assets/clientes/dimeiggs.png", alt: "Dimeiggs" },
-  { src: "/assets/clientes/axo-chile.png", alt: "AXO Chile" },
-  // LATAM
-  { src: "/assets/clientes/dinet.png", alt: "Dinet" },
-  { src: "/assets/clientes/farmacias-peruanas.png", alt: "Farmacias Peruanas" },
-  { src: "/assets/clientes/renner.png", alt: "Renner" },
-  { src: "/assets/clientes/hering.jpg", alt: "Hering" },
-  { src: "/assets/clientes/levis.png", alt: "Levi's" },
-  { src: "/assets/clientes/alpargatas.jpg", alt: "Alpargatas" },
-  { src: "/assets/clientes/flexi.png", alt: "Flexi" },
-  { src: "/assets/clientes/adidas.png", alt: "adidas" },
-  { src: "/assets/clientes/farmacorp.jpg", alt: "Farmacorp" },
-  { src: "/assets/clientes/belleza-express.gif", alt: "Belleza Express" },
-  { src: "/assets/clientes/continental.png", alt: "Continental" },
-  { src: "/assets/clientes/bosch.png", alt: "Bosch" },
-  { src: "/assets/clientes/flex.png", alt: "Flex" },
+  { src: "/assets/clientes-2/ripley.png", alt: "Ripley" },
+  { src: "/assets/clientes-2/dimerc.png", alt: "Dimerc" },
+  { src: "/assets/clientes-2/pf-alimentos.png", alt: "Productos Fernández" },
+  { src: "/assets/clientes-2/soprole.png", alt: "Soprole" },
+  { src: "/assets/clientes-2/hites.png", alt: "Hites" },
+  { src: "/assets/clientes-2/belcorp.png", alt: "Belcorp" },
+  { src: "/assets/clientes-2/concha-y-toro.png", alt: "Concha y Toro" },
+  { src: "/assets/clientes-2/artel.png", alt: "Artel" },
+  { src: "/assets/clientes-2/chilexpress.png", alt: "Chilexpress" },
+  { src: "/assets/clientes-2/dimeiggs.png", alt: "Dimeiggs" },
+  { src: "/assets/clientes-2/axo.png", alt: "AXO" },
+  { src: "/assets/clientes-2/gino.png", alt: "Gino" },
+  { src: "/assets/clientes-2/dinet.png", alt: "Dinet" },
+  { src: "/assets/clientes-2/farmacias-peruanas.png", alt: "Farmacias Peruanas" },
+  { src: "/assets/clientes-2/levis.png", alt: "Levi's" },
+  { src: "/assets/clientes-2/flexi.png", alt: "Flexi" },
+  { src: "/assets/clientes-2/flex.png", alt: "Flex" },
+  { src: "/assets/clientes-2/adidas.png", alt: "adidas" },
+  { src: "/assets/clientes-2/farmacorp.png", alt: "Farmacorp" },
+  { src: "/assets/clientes-2/belleza-express.png", alt: "Belleza Express" },
+  { src: "/assets/clientes-2/continental.png", alt: "Continental" },
+  { src: "/assets/clientes-2/bosch.png", alt: "Bosch" },
 ];
 ---
 
@@ -63,7 +59,7 @@ const clientes = [
   .clientes {
     padding-block: clamp(3.75rem, 6.5vw, 5.5rem);
     border-bottom: 1px solid var(--line);
-    background: var(--white);
+    background: #f2f3f5; /* gris claro para la franja del carrusel */
   }
 
   .clientes__lead {
