@@ -458,11 +458,26 @@ const categorias = [
   // media del panel (sin cambiar de pestaña). Sin video -> placeholder.
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // En celular no auto-cargamos videos (ahorra datos): mostramos el placeholder
+  // y el video se carga/reproduce solo al TOCAR el producto.
+  const isMobile = window.matchMedia("(max-width: 860px)").matches;
+
   document.querySelectorAll<HTMLElement>("#soluciones .explorer").forEach((root) => {
     const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
     const panels = Array.from(root.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
 
-    function applyMedia(panel: HTMLElement, play: boolean) {
+    function showPlaceholder(panel: HTMLElement) {
+      const video = panel.querySelector<HTMLVideoElement>("[data-media-video]");
+      const ph = panel.querySelector<HTMLElement>("[data-media-ph]");
+      if (video) {
+        video.pause();
+        video.hidden = true;
+      }
+      if (ph) ph.style.display = "";
+    }
+
+    // Muestra y reproduce el video del producto seleccionado (o placeholder si no tiene)
+    function playSelected(panel: HTMLElement) {
       const video = panel.querySelector<HTMLVideoElement>("[data-media-video]");
       const ph = panel.querySelector<HTMLElement>("[data-media-ph]");
       const products = Array.from(panel.querySelectorAll<HTMLButtonElement>("[data-product]"));
@@ -472,17 +487,19 @@ const categorias = [
         if (video.getAttribute("src") !== src) video.setAttribute("src", src);
         video.hidden = false;
         if (ph) ph.style.display = "none";
-        if (play) video.play().catch(() => {});
+        video.play().catch(() => {});
       } else {
-        if (video) {
-          video.pause();
-          video.hidden = true;
-        }
-        if (ph) ph.style.display = "";
+        showPlaceholder(panel);
       }
     }
 
-    // Click en producto -> selecciona y reproduce su video
+    // Auto-arranque: solo desktop sin reduce-motion. En celular/reduce -> placeholder.
+    function autoMedia(panel: HTMLElement) {
+      if (isMobile || reduce) showPlaceholder(panel);
+      else playSelected(panel);
+    }
+
+    // Click/tap en producto -> selecciona y reproduce su video (tambien en celular)
     panels.forEach((panel) => {
       const products = Array.from(panel.querySelectorAll<HTMLButtonElement>("[data-product]"));
       products.forEach((btn) => {
@@ -492,7 +509,7 @@ const categorias = [
             p.classList.toggle("is-selected", on);
             p.setAttribute("aria-pressed", String(on));
           });
-          applyMedia(panel, true);
+          playSelected(panel);
         });
       });
     });
@@ -506,7 +523,7 @@ const categorias = [
         panels[i].hidden = !active;
         if (!active) panels[i].querySelector<HTMLVideoElement>("[data-media-video]")?.pause();
       });
-      applyMedia(panels[index], !reduce);
+      autoMedia(panels[index]);
       if (setFocus) tabs[index].focus();
     }
 
@@ -525,7 +542,7 @@ const categorias = [
       });
     });
 
-    // Estado inicial: el panel visible muestra (y reproduce) su video seleccionado
-    applyMedia(panels[0], !reduce);
+    // Estado inicial: en desktop reproduce el video; en celular deja el placeholder
+    autoMedia(panels[0]);
   });
 </script>
