@@ -49,6 +49,34 @@ const casos = [
       { valor: "−28°C", label: "operación en congelado", ph: false },
     ],
   },
+  {
+    // CONTENIDO POR CONFIRMAR CON ARIEL — textos genéricos temporales.
+    cliente: "Belleza Express",
+    logo: "/assets/clientes-2/belleza-express.png",
+    foto: "/assets/img/casos/belleza-express-poster.jpg",
+    video: "/assets/video/casos/belleza-express.mp4",
+    problema:
+      "Alto volumen de pedidos de venta directa con gran variedad de productos y despacho a una amplia red.",
+    solucion:
+      "Automatización del centro de distribución con tecnología SDI para clasificación y preparación de pedidos.",
+    resultado:
+      "Preparación de pedidos más rápida y con mayor precisión. (Detalle por confirmar con el cliente.)",
+    metricas: [],
+  },
+  {
+    // CONTENIDO POR CONFIRMAR CON ARIEL — textos genéricos temporales.
+    cliente: "Continental",
+    logo: "/assets/clientes-2/continental.png",
+    foto: "/assets/img/casos/continental-poster.jpg",
+    video: "/assets/video/casos/continental.mp4",
+    problema:
+      "Operación industrial con exigencias de volumen, trazabilidad y velocidad en la distribución.",
+    solucion:
+      "Solución de automatización e intralogística SDI integrada a la operación del centro de distribución.",
+    resultado:
+      "Operación más ágil y confiable. (Detalle por confirmar con el cliente.)",
+    metricas: [],
+  },
 ];
 ---
 
@@ -116,14 +144,16 @@ const casos = [
                 </div>
               </dl>
 
-              <ul class="caso__metrics">
-                {caso.metricas.map((m) => (
-                  <li class="caso__metric">
-                    <span class="caso__metric-num">{m.valor}</span>
-                    <span class="caso__metric-label">{m.label}</span>
-                  </li>
-                ))}
-              </ul>
+              {caso.metricas.length > 0 && (
+                <ul class="caso__metrics">
+                  {caso.metricas.map((m) => (
+                    <li class="caso__metric">
+                      <span class="caso__metric-num">{m.valor}</span>
+                      <span class="caso__metric-label">{m.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </article>
         ))
