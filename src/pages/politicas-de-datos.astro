@@ -1,0 +1,178 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+// DATOS LEGALES: PLACEHOLDERS pendientes de confirmar con Ariel (razón social,
+// RUT, domicilio y correo del responsable). Reemplazar antes de publicación final.
+const EMPRESA = "SDI Systems"; // <- razón social/RUT por confirmar
+const EMAIL = "contacto@sdisystems.cl"; // <- correo real por confirmar
+const DOMICILIO = "Santiago, Chile"; // <- domicilio por confirmar
+const ACTUALIZACION = "julio de 2026";
+---
+
+<Layout
+  title="Política de Tratamiento de Datos | SDI Systems"
+  description="Política de tratamiento y protección de datos personales de SDI Systems, conforme a la Ley N° 19.628 sobre Protección de la Vida Privada."
+>
+  <Navbar />
+  <main class="legal">
+    <div class="container legal__wrap">
+      <a class="legal__back" href="/#top">← Volver al inicio</a>
+      <h1 class="legal__title">Política de Tratamiento de Datos Personales</h1>
+      <p class="legal__meta">Última actualización: {ACTUALIZACION}</p>
+
+      <p>
+        En {EMPRESA} respetamos tu privacidad y protegemos los datos personales
+        que nos entregas. Esta política explica qué datos recopilamos, con qué
+        finalidad, cómo los tratamos y qué derechos tienes, conforme a la
+        Ley N° 19.628 sobre Protección de la Vida Privada de Chile y demás
+        normativa aplicable.
+      </p>
+
+      <h2>1. Responsable del tratamiento</h2>
+      <p>
+        El responsable del tratamiento de tus datos es {EMPRESA}, con domicilio
+        en {DOMICILIO}. Para cualquier consulta relacionada con esta política
+        puedes escribirnos a <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+      </p>
+
+      <h2>2. Datos que recopilamos</h2>
+      <p>
+        Recopilamos únicamente los datos que nos proporcionas voluntariamente a
+        través del formulario de contacto u otros canales, principalmente:
+      </p>
+      <ul>
+        <li>Nombre.</li>
+        <li>Empresa u organización (opcional).</li>
+        <li>Correo electrónico.</li>
+        <li>El contenido del mensaje o consulta que nos envías.</li>
+      </ul>
+
+      <h2>3. Finalidad del tratamiento</h2>
+      <p>Tratamos tus datos personales con las siguientes finalidades:</p>
+      <ul>
+        <li>Responder tus consultas y contactarte respecto a tu solicitud.</li>
+        <li>
+          Elaborar propuestas comerciales o técnicas relacionadas con tus
+          necesidades logísticas.
+        </li>
+        <li>Gestionar la relación comercial que pudiera originarse.</li>
+      </ul>
+
+      <h2>4. Base del tratamiento</h2>
+      <p>
+        El tratamiento se realiza sobre la base del consentimiento que otorgas
+        al enviar el formulario, y del interés legítimo de atender y dar
+        seguimiento a tu consulta.
+      </p>
+
+      <h2>5. Conservación</h2>
+      <p>
+        Conservamos tus datos durante el tiempo necesario para atender tu
+        consulta y, en su caso, para la gestión de la relación comercial,
+        salvo que solicites su eliminación antes.
+      </p>
+
+      <h2>6. Comunicación a terceros</h2>
+      <p>
+        No vendemos ni cedemos tus datos personales a terceros. Solo podrían ser
+        tratados por proveedores tecnológicos que nos prestan servicios (por
+        ejemplo, gestión de formularios o correo), siempre bajo obligaciones de
+        confidencialidad y solo para las finalidades descritas.
+      </p>
+
+      <h2>7. Tus derechos</h2>
+      <p>
+        Puedes ejercer en cualquier momento tus derechos de acceso,
+        rectificación, cancelación (eliminación) y oposición respecto de tus
+        datos personales, escribiéndonos a
+        <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. Responderemos tu solicitud en
+        los plazos que establece la ley.
+      </p>
+
+      <h2>8. Seguridad</h2>
+      <p>
+        Adoptamos medidas técnicas y organizativas razonables para proteger tus
+        datos frente a accesos no autorizados, pérdida o uso indebido.
+      </p>
+
+      <h2>9. Cambios en esta política</h2>
+      <p>
+        Podemos actualizar esta política para reflejar cambios legales u
+        operativos. Publicaremos cualquier modificación en esta misma página,
+        indicando la fecha de la última actualización.
+      </p>
+
+      <h2>10. Contacto</h2>
+      <p>
+        Si tienes dudas sobre esta política o sobre el tratamiento de tus datos,
+        escríbenos a <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+      </p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal {
+    padding-top: calc(var(--nav-h) + clamp(2rem, 5vw, 3.5rem));
+    padding-bottom: clamp(3rem, 6vw, 5rem);
+    background: var(--white);
+  }
+
+  .legal__wrap {
+    max-width: 760px;
+  }
+
+  .legal__back {
+    display: inline-block;
+    color: var(--brand-blue);
+    font-weight: 500;
+    font-size: 0.92rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .legal__title {
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    color: var(--brand-navy);
+    line-height: 1.15;
+  }
+
+  .legal__meta {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .legal h2 {
+    color: var(--brand-navy);
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .legal p,
+  .legal li {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .legal p {
+    margin-bottom: 0.9rem;
+  }
+
+  .legal ul {
+    margin: 0 0 1rem 1.2rem;
+    display: grid;
+    gap: 0.4rem;
+    list-style: disc;
+  }
+
+  .legal a {
+    color: var(--brand-blue);
+    text-decoration: underline;
+  }
+</style>

@@ -1,17 +1,17 @@
 ---
 const links = [
-  { href: "#empresa", label: "Empresa" },
-  { href: "#soluciones", label: "Soluciones" },
-  { href: "#industrias", label: "Industrias" },
-  { href: "#servicios", label: "Servicios" },
-  { href: "#casos", label: "Casos" },
-  { href: "#por-que", label: "Por qué SDI" },
+  { href: "/#empresa", label: "Empresa" },
+  { href: "/#soluciones", label: "Soluciones" },
+  { href: "/#industrias", label: "Industrias" },
+  { href: "/#servicios", label: "Servicios" },
+  { href: "/#casos", label: "Casos" },
+  { href: "/#por-que", label: "Por qué SDI" },
 ];
 ---
 
 <header class="nav" id="nav">
   <div class="container nav__inner">
-    <a href="#top" class="nav__brand" aria-label="SDI Systems — inicio">
+    <a href="/#top" class="nav__brand" aria-label="SDI Systems — inicio">
       <img
         src="/assets/logos/logo-sdi.png"
         alt="SDI Systems"
@@ -22,7 +22,7 @@ const links = [
 
     <nav class="nav__links" id="navLinks" aria-label="Navegación principal">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
-      <a href="#contacto" class="btn btn-gold nav__cta">Contáctanos</a>
+      <a href="/#contacto" class="btn btn-gold nav__cta">Contáctanos</a>
     </nav>
 
     <button

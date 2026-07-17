@@ -5,20 +5,20 @@ const cols = [
   {
     title: "Soluciones",
     links: [
-      { href: "#soluciones", label: "Sorters de alta velocidad" },
-      { href: "#soluciones", label: "Clasificación de cajas" },
-      { href: "#soluciones", label: "Robótica y AutoStore™" },
-      { href: "#soluciones", label: "Picking y consolidación" },
+      { href: "/#soluciones", label: "Sorters de alta velocidad" },
+      { href: "/#soluciones", label: "Clasificación de cajas" },
+      { href: "/#soluciones", label: "Robótica y AutoStore™" },
+      { href: "/#soluciones", label: "Picking y consolidación" },
     ],
   },
   {
     title: "Empresa",
     links: [
-      { href: "#empresa", label: "Sobre SDI Systems" },
-      { href: "#industrias", label: "Industrias" },
-      { href: "#servicios", label: "El Ciclo SDI" },
-      { href: "#casos", label: "Casos y clientes" },
-      { href: "#por-que", label: "Por qué SDI" },
+      { href: "/#empresa", label: "Sobre SDI Systems" },
+      { href: "/#industrias", label: "Industrias" },
+      { href: "/#servicios", label: "El Ciclo SDI" },
+      { href: "/#casos", label: "Casos y clientes" },
+      { href: "/#por-que", label: "Por qué SDI" },
     ],
   },
 ];
@@ -60,14 +60,16 @@ const cols = [
         <li><a href="https://wa.me/56900000000" rel="noopener">WhatsApp +56 9 0000 0000</a></li>
         <li>Santiago, Chile · LATAM</li>
       </ul>
-      <a href="#contacto" class="btn btn-gold footer__cta">Agenda una reunión</a>
+      <a href="/#contacto" class="btn btn-gold footer__cta">Agenda una reunión</a>
     </div>
   </div>
 
   <div class="footer__bottom">
     <div class="container footer__bottom-inner">
       <span>© {year} SDI Systems. Todos los derechos reservados.</span>
-      <span>Automatización e Intralogística · LATAM</span>
+      <nav class="footer__legal" aria-label="Legal">
+        <a href="/politicas-de-datos">Política de Tratamiento de Datos</a>
+      </nav>
     </div>
   </div>
 </footer>
@@ -143,6 +145,14 @@ const cols = [
     padding-block: 1.4rem;
     font-size: 0.86rem;
     color: #8a8d9c;
+  }
+
+  .footer__legal a {
+    color: #8a8d9c;
+  }
+
+  .footer__legal a:hover {
+    color: var(--brand-gold);
   }
 
   @media (max-width: 880px) {
