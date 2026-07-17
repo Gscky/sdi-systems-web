@@ -145,17 +145,6 @@ const clientes = [
     }
   }
 
-  /* Accesibilidad: sin movimiento si el usuario lo pide */
-  @media (prefers-reduced-motion: reduce) {
-    .marquee {
-      overflow-x: auto;
-    }
-    .marquee__track {
-      animation: none;
-    }
-    /* Evita duplicado visual cuando no hay scroll automatico */
-    .marquee__track[aria-hidden="true"] {
-      display: none;
-    }
-  }
+  /* La banda se anima SIEMPRE (decisión del cliente), incluso con
+     "reducir movimiento" activado en el sistema. Se mantiene la pausa al hover. */
 </style>
