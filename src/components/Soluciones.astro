@@ -358,13 +358,13 @@ const categorias = [
 
   .explorer__product.is-selected {
     border-left-width: 3px;
-    border-left-color: var(--brand-gold);
+    border-left-color: #0b1020; /* borde negro en el producto seleccionado */
     background: var(--bg-light);
   }
 
   .explorer__product.is-selected .explorer__product-name {
     font-weight: 700;
-    color: var(--brand-blue);
+    color: var(--brand-navy);
   }
 
   .explorer__product:focus-visible {
@@ -517,6 +517,7 @@ const categorias = [
       const src = sel?.getAttribute("data-video") || "";
       if (src && video) {
         if (video.getAttribute("src") !== src) video.setAttribute("src", src);
+        video.muted = true;
         video.hidden = false;
         if (ph) ph.style.display = "none";
         video.play().catch(() => {});
@@ -525,12 +526,11 @@ const categorias = [
       }
     }
 
-    // Auto-arranque en desktop (aunque haya reduce-motion, decisión del cliente:
-    // el video del primer producto debe verse corriendo sin tener que clickear).
-    // En celular se mantiene el placeholder para ahorrar datos (tap para reproducir).
+    // Auto-arranque SIEMPRE (desktop y celular, aunque haya reduce-motion):
+    // decisión del cliente = el video del primer producto debe verse corriendo
+    // sin tener que clickear. Muted + playsinline permite autoplay en móvil.
     function autoMedia(panel: HTMLElement) {
-      if (isMobile) showPlaceholder(panel);
-      else playSelected(panel);
+      playSelected(panel);
     }
 
     // Deja seleccionado el PRIMER producto del panel (para que al entrar a un
