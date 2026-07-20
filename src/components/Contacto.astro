@@ -31,6 +31,22 @@ const FORMSPREE = "https://formspree.io/f/TU_FORM_ID"; // <- endpoint real pendi
           {EMAIL}
         </a>
       </div>
+
+      <div class="contacto__cert">
+        <img
+          class="contacto__cert-badge"
+          src="/assets/logos/great-place-to-work.png"
+          alt="Great Place to Work Certified — Chile, noviembre 2025 a noviembre 2026"
+          width="118"
+          height="167"
+          loading="lazy"
+          decoding="async"
+        />
+        <p class="contacto__cert-text">
+          Somos una empresa <strong>certificada Great Place to Work®</strong>,
+          reconocida por la calidad de nuestro ambiente laboral.
+        </p>
+      </div>
     </div>
 
     <form class="contacto__form" action={FORMSPREE} method="POST">
@@ -106,6 +122,36 @@ const FORMSPREE = "https://formspree.io/f/TU_FORM_ID"; // <- endpoint real pendi
   .contacto__chip svg {
     width: 20px;
     height: 20px;
+  }
+
+  /* Sello Great Place to Work — tarjeta blanca para que el badge navy resalte */
+  .contacto__cert {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.75rem;
+    padding: 0.9rem 1.1rem;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    max-width: 420px;
+  }
+
+  .contacto__cert-badge {
+    height: 84px;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .contacto__cert-text {
+    font-size: 0.86rem;
+    line-height: 1.45;
+    color: var(--brand-navy);
+    margin: 0;
+  }
+
+  .contacto__cert-text strong {
+    color: var(--brand-blue);
   }
 
   .contacto__form {
