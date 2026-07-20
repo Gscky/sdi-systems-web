@@ -417,6 +417,11 @@ const categorias = [
   /* Placeholder de imagen de equipo */
   .explorer__media {
     margin: 0;
+    /* Marco oscuro alrededor del video del producto (pedido de Ariel) */
+    border: 3px solid #0b1020;
+    border-radius: var(--radius-sm);
+    background: #0b1020;
+    overflow: hidden;
   }
 
   .explorer__media-ph {
@@ -524,10 +529,23 @@ const categorias = [
       }
     }
 
-    // Auto-arranque: solo desktop sin reduce-motion. En celular/reduce -> placeholder.
+    // Auto-arranque en desktop (aunque haya reduce-motion, decisión del cliente:
+    // el video del primer producto debe verse corriendo sin tener que clickear).
+    // En celular se mantiene el placeholder para ahorrar datos (tap para reproducir).
     function autoMedia(panel: HTMLElement) {
-      if (isMobile || reduce) showPlaceholder(panel);
+      if (isMobile) showPlaceholder(panel);
       else playSelected(panel);
+    }
+
+    // Deja seleccionado el PRIMER producto del panel (para que al entrar a un
+    // grupo siempre arranque su video, sin importar la selección previa).
+    function resetToFirst(panel: HTMLElement) {
+      const products = Array.from(panel.querySelectorAll<HTMLButtonElement>("[data-product]"));
+      products.forEach((p, k) => {
+        const on = k === 0;
+        p.classList.toggle("is-selected", on);
+        p.setAttribute("aria-pressed", String(on));
+      });
     }
 
     // Click/tap en producto -> selecciona y reproduce su video (tambien en celular)
@@ -554,6 +572,7 @@ const categorias = [
         panels[i].hidden = !active;
         if (!active) panels[i].querySelector<HTMLVideoElement>("[data-media-video]")?.pause();
       });
+      resetToFirst(panels[index]);
       autoMedia(panels[index]);
       if (setFocus) tabs[index].focus();
     }
