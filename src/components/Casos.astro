@@ -101,6 +101,7 @@ const casos = [
                   type="button"
                   class="caso__play"
                   data-caso-video={caso.video}
+                  data-caso-poster={caso.foto}
                   data-caso-title={caso.cliente}
                   aria-label={`Ver video del proyecto en ${caso.cliente}`}
                 >
@@ -221,9 +222,9 @@ const casos = [
   }
 
   .caso__logo {
-    height: 62px;
+    height: 84px;
     width: auto;
-    max-width: 210px;
+    max-width: 300px;
     object-fit: contain;
     object-position: left;
   }
@@ -442,10 +443,12 @@ const casos = [
 
     function open(src: string, trigger: HTMLElement) {
       lastTrigger = trigger;
+      const poster = trigger.getAttribute("data-caso-poster");
+      if (poster) video.setAttribute("poster", poster);
       video.setAttribute("src", src);
+      video.load();
       modal.hidden = false;
       document.body.style.overflow = "hidden";
-      video.currentTime = 0;
       video.play().catch(() => {});
       modal.querySelector<HTMLButtonElement>("[data-caso-close]")?.focus();
     }
