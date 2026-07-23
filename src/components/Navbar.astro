@@ -22,6 +22,14 @@ const links = [
 
     <nav class="nav__links" id="navLinks" aria-label="Navegación principal">
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      <a
+        href="https://soporte.sdisystems.cl/"
+        class="btn btn-outline-navy nav__help"
+        target="_blank"
+        rel="noopener"
+      >
+        Helpdesk
+      </a>
       <a href="/#contacto" class="btn btn-gold nav__cta">Contáctanos</a>
     </nav>
 
@@ -95,7 +103,8 @@ const links = [
     width: 100%;
   }
 
-  .nav__cta {
+  .nav__cta,
+  .nav__help {
     padding: 0.6rem 1.15rem;
     font-size: 0.92rem;
   }
