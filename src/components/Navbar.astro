@@ -24,7 +24,7 @@ const links = [
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
       <a
         href="https://soporte.sdisystems.cl/"
-        class="btn btn-outline-navy nav__help"
+        class="btn btn-blue nav__help"
         target="_blank"
         rel="noopener"
       >
@@ -80,7 +80,7 @@ const links = [
     gap: 1.6rem;
   }
 
-  .nav__links a:not(.nav__cta) {
+  .nav__links a:not(.nav__cta):not(.nav__help) {
     color: var(--brand-navy);
     font-weight: 500;
     font-size: 0.96rem;
@@ -88,7 +88,7 @@ const links = [
     padding: 0.25rem 0;
   }
 
-  .nav__links a:not(.nav__cta)::after {
+  .nav__links a:not(.nav__cta):not(.nav__help)::after {
     content: "";
     position: absolute;
     left: 0;
@@ -99,15 +99,15 @@ const links = [
     transition: width var(--t);
   }
 
-  .nav__links a:not(.nav__cta):hover::after {
+  .nav__links a:not(.nav__cta):not(.nav__help):hover::after {
     width: 100%;
   }
 
   .nav__cta,
   .nav__help {
-    padding: 0.68rem 1.7rem;
+    padding: 0.6rem 1.5rem;
     font-size: 0.92rem;
-    line-height: 1;
+    line-height: 1.15;
   }
 
   .nav__toggle {
@@ -165,7 +165,7 @@ const links = [
       transform: translateY(0);
     }
 
-    .nav__links a:not(.nav__cta) {
+    .nav__links a:not(.nav__cta):not(.nav__help) {
       padding: 0.9rem 0;
       border-bottom: 1px solid var(--line);
       font-size: 1.05rem;
