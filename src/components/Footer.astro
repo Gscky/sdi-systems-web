@@ -131,11 +131,13 @@ const cols = [
 
   .footer__cta {
     margin-top: 1.25rem;
-    color: #000;
   }
 
-  .footer__cta:hover {
-    color: #000;
+  /* Gana a `.footer__col a` (que forzaba gris claro / dorado en hover) para que
+     el texto del botón dorado se lea bien, igual que el CTA del navbar. */
+  .footer__col a.footer__cta,
+  .footer__col a.footer__cta:hover {
+    color: var(--brand-navy);
   }
 
   .footer__bottom {
