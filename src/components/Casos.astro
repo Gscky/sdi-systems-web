@@ -1,8 +1,10 @@
 ---
-// Casos de exito — formato problema -> solucion -> resultado, con metricas.
+// Casos de exito — formato desafio -> solucion -> resultado, con metricas.
 // El muro de clientes se movio al carrusel (Clientes.astro), aqui van solo casos.
-// Atribucion fresco/congelado + transelevador 740 = PF Alimentos (segun fuente).
-// NOTA: las metricas marcadas "(placeholder)" deben confirmarse con Ariel.
+// TEXTOS OFICIALES DEL CLIENTE (doc de Ariel, 26-jul-2026) para Dimerc, Soprole,
+// Belleza Express y Continental — no editar sin pasar por el. `solucion` acepta
+// string o array (el doc trae la solucion en dos vinetas en Dimerc y Soprole).
+// PF Alimentos no venia en ese doc: conserva sus textos previos.
 const casos = [
   {
     cliente: "Dimerc",
@@ -10,14 +12,14 @@ const casos = [
     foto: "/assets/img/casos/dimerc-final-poster-v2.jpg",
     video: "/assets/video/casos/dimerc-final.mp4",
     problema:
-      "Surtido mixto de cajas y unidades hacia tiendas, con alta exigencia de precisión y volumen.",
-    solucion:
-      "Picking de cajas (torres de picking, pick-to-pallet, sorter a tiendas) y picking de unidades (pick-to-light, RF, balanza de validación).",
-    resultado: "Operación de picking mixta, más rápida y con menos errores.",
-    metricas: [
-      { valor: "+25%", label: "líneas por hora", ph: true },
-      { valor: "−30%", label: "errores de picking", ph: true },
+      "Preparación de pedidos de cajas completas y unitarios para oficinas a lo largo de todo Chile, con más del 90% entregado en menos de 24 horas.",
+    solucion: [
+      "Sistema de Pick to Belt para cajas completas, e implementación de sistema mecanizado para el Picking por zonas para el surtido de unidades, asistido por luces.",
+      "Clasificador de cajas de alta velocidad para la preparación de rutas.",
     ],
+    resultado:
+      "Aumento de productividad, disminución de errores, mayor rapidez en entrega a cliente.",
+    metricas: [],
   },
   {
     cliente: "Soprole",
@@ -25,16 +27,17 @@ const casos = [
     foto: "/assets/img/casos/soprole-final-poster.jpg",
     video: "/assets/video/casos/soprole-final.mp4",
     problema:
-      "Reposición a tiendas con alto volumen y necesidad de estandarizar el picking.",
-    solucion:
-      "Picking de cajas (pick-to-belt, sorter a tiendas) y picking de unidades (pick-to-light).",
-    resultado: "Despacho a tiendas más ágil y estandarizado.",
-    metricas: [
-      { valor: "+30%", label: "productividad", ph: true },
-      { valor: "2x", label: "velocidad de despacho", ph: true },
+      "Preparación de pedidos de clientes de todo Chile, para productos temperatura ambiente y enfriados.",
+    solucion: [
+      "Sistema de Picking cajas/bandejas completas vía transportadores, y de unidades utilizando sistema de Pick to Light.",
+      "2 clasificadores de alta velocidad para la consolidación de pedidos y preparación de rutas.",
     ],
+    resultado:
+      "Disminución de personal de preparación, y mayor agilidad para la entrega de los pedidos a clientes.",
+    metricas: [],
   },
   {
+    // No venia en el doc de Ariel — textos previos, pendiente de confirmar.
     cliente: "PF Alimentos",
     logo: "/assets/clientes-2/pf-alimentos.png",
     foto: "/assets/img/casos/pf-alimentos-final-poster.jpg",
@@ -50,32 +53,32 @@ const casos = [
     ],
   },
   {
-    // CONTENIDO POR CONFIRMAR CON ARIEL — textos genéricos temporales.
     cliente: "Belleza Express",
     logo: "/assets/clientes-2/belleza-express.png",
     foto: "/assets/img/casos/belleza-express-final-poster.jpg",
     video: "/assets/video/casos/belleza-express-final.mp4",
     problema:
-      "Alto volumen de pedidos de venta directa con gran variedad de productos y despacho a una amplia red.",
+      "Diseño de operación de alto rendimiento, incluyendo el mix completo de productos de Belleza Express, considerando tanto el proceso físico como sistémico (WMS).",
     solucion:
-      "Automatización del centro de distribución con tecnología SDI para clasificación y preparación de pedidos.",
+      "Rediseño de procesos operativos, sistémicos y de infraestructura de Centro de Distribución de Belleza Express.",
     resultado:
-      "Preparación de pedidos más rápida y con mayor precisión. (Detalle por confirmar con el cliente.)",
+      "Aumento en la capacidad de picking, aumento en la precisión de inventario. Disminución en tiempos de preparación.",
     metricas: [],
   },
   {
-    // CONTENIDO POR CONFIRMAR CON ARIEL — textos genéricos temporales.
     cliente: "Continental",
     logo: "/assets/clientes-2/continental.png",
     foto: "/assets/img/casos/continental-final-poster.jpg",
     video: "/assets/video/casos/continental-final.mp4",
     problema:
-      "Operación industrial con exigencias de volumen, trazabilidad y velocidad en la distribución.",
+      "Utilizar de la forma más eficiente el espacio asignado a los productos electrónicos, de forma segura y permitiendo la alimentación de las líneas productivas en forma constante, las 24 horas del día, 7 días a la semana.",
     solucion:
-      "Solución de automatización e intralogística SDI integrada a la operación del centro de distribución.",
+      "Sistema de almacenamiento cúbico AutoStore, diseñado tanto para la capacidad de almacenamiento como de preparación definidas.",
     resultado:
-      "Operación más ágil y confiable. (Detalle por confirmar con el cliente.)",
-    metricas: [],
+      "Aumento en la capacidad de almacenamiento de un 80% en comparación con sistemas anteriores, y productividad superior a la requerida inicialmente.",
+    metricas: [
+      { valor: "+80%", label: "capacidad de almacenamiento", ph: false },
+    ],
   },
 ];
 ---
@@ -132,12 +135,22 @@ const casos = [
 
               <dl class="caso__flow">
                 <div class="caso__step">
-                  <dt class="caso__label">Problema</dt>
+                  <dt class="caso__label">Desafío</dt>
                   <dd>{caso.problema}</dd>
                 </div>
                 <div class="caso__step">
                   <dt class="caso__label caso__label--sol">Solución SDI</dt>
-                  <dd>{caso.solucion}</dd>
+                  <dd>
+                    {Array.isArray(caso.solucion) ? (
+                      <ul class="caso__sol-list">
+                        {caso.solucion.map((s) => (
+                          <li>{s}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      caso.solucion
+                    )}
+                  </dd>
                 </div>
                 <div class="caso__step">
                   <dt class="caso__label caso__label--res">Resultado</dt>
@@ -370,6 +383,30 @@ const casos = [
     color: var(--muted);
     font-size: 0.95rem;
     line-height: 1.5;
+  }
+
+  /* Solucion en vinetas (cuando el cliente la entrega en varios puntos) */
+  .caso__sol-list {
+    display: grid;
+    gap: 0.45rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .caso__sol-list li {
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .caso__sol-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--brand-blue);
   }
 
   .caso__label {
