@@ -1,30 +1,36 @@
 ---
 // Carrusel marquee de clientes — logos reales A COLOR, scroll infinito.
 // Lista actualizada (22) con los logos entregados por el cliente (jul-2026),
-// todos PNG del mismo tamaño en /assets/clientes-2/.
+// en /assets/clientes-2/. Todos tienen 425px de alto y ancho variable.
+//
+// `w`/`h` son las dimensiones REALES del PNG y se emiten como atributos
+// width/height. No son decorativas: sin ellas el navegador no conoce la
+// proporcion antes de descargar la imagen, la pista arranca con menos ancho
+// del que le corresponde y el marquee da un salto (o se ve quieto) durante
+// los primeros instantes. El tamano en pantalla lo sigue mandando el CSS.
 const clientes = [
-  { src: "/assets/clientes-2/ripley.png", alt: "Ripley" },
-  { src: "/assets/clientes-2/dimerc.png", alt: "Dimerc" },
-  { src: "/assets/clientes-2/pf-alimentos.png", alt: "Productos Fernández" },
-  { src: "/assets/clientes-2/soprole.png", alt: "Soprole" },
-  { src: "/assets/clientes-2/hites.png", alt: "Hites" },
-  { src: "/assets/clientes-2/belcorp.png", alt: "Belcorp" },
-  { src: "/assets/clientes-2/concha-y-toro.png", alt: "Concha y Toro" },
-  { src: "/assets/clientes-2/artel.png", alt: "Artel" },
-  { src: "/assets/clientes-2/chilexpress.png", alt: "Chilexpress" },
-  { src: "/assets/clientes-2/dimeiggs.png", alt: "Dimeiggs" },
-  { src: "/assets/clientes-2/axo.png", alt: "AXO" },
-  { src: "/assets/clientes-2/gino.png", alt: "Gino" },
-  { src: "/assets/clientes-2/dinet.png", alt: "Dinet" },
-  { src: "/assets/clientes-2/farmacias-peruanas.png", alt: "Farmacias Peruanas" },
-  { src: "/assets/clientes-2/levis.png", alt: "Levi's" },
-  { src: "/assets/clientes-2/flexi.png", alt: "Flexi" },
-  { src: "/assets/clientes-2/flex.png", alt: "Flex" },
-  { src: "/assets/clientes-2/adidas.png", alt: "adidas" },
-  { src: "/assets/clientes-2/farmacorp.png", alt: "Farmacorp" },
-  { src: "/assets/clientes-2/belleza-express.png", alt: "Belleza Express" },
-  { src: "/assets/clientes-2/continental.png", alt: "Continental" },
-  { src: "/assets/clientes-2/bosch.png", alt: "Bosch" },
+  { src: "/assets/clientes-2/ripley.png", alt: "Ripley", w: 806, h: 425 },
+  { src: "/assets/clientes-2/dimerc.png", alt: "Dimerc", w: 919, h: 425 },
+  { src: "/assets/clientes-2/pf-alimentos.png", alt: "Productos Fernández", w: 577, h: 425 },
+  { src: "/assets/clientes-2/soprole.png", alt: "Soprole", w: 425, h: 425 },
+  { src: "/assets/clientes-2/hites.png", alt: "Hites", w: 518, h: 425 },
+  { src: "/assets/clientes-2/belcorp.png", alt: "Belcorp", w: 425, h: 425 },
+  { src: "/assets/clientes-2/concha-y-toro.png", alt: "Concha y Toro", w: 425, h: 425 },
+  { src: "/assets/clientes-2/artel.png", alt: "Artel", w: 529, h: 425 },
+  { src: "/assets/clientes-2/chilexpress.png", alt: "Chilexpress", w: 1252, h: 425 },
+  { src: "/assets/clientes-2/dimeiggs.png", alt: "Dimeiggs", w: 971, h: 425 },
+  { src: "/assets/clientes-2/axo.png", alt: "AXO", w: 418, h: 425 },
+  { src: "/assets/clientes-2/gino.png", alt: "Gino", w: 500, h: 425 },
+  { src: "/assets/clientes-2/dinet.png", alt: "Dinet", w: 628, h: 425 },
+  { src: "/assets/clientes-2/farmacias-peruanas.png", alt: "Farmacias Peruanas", w: 983, h: 425 },
+  { src: "/assets/clientes-2/levis.png", alt: "Levi's", w: 670, h: 425 },
+  { src: "/assets/clientes-2/flexi.png", alt: "Flexi", w: 425, h: 425 },
+  { src: "/assets/clientes-2/flex.png", alt: "Flex", w: 554, h: 425 },
+  { src: "/assets/clientes-2/adidas.png", alt: "adidas", w: 553, h: 425 },
+  { src: "/assets/clientes-2/farmacorp.png", alt: "Farmacorp", w: 771, h: 425 },
+  { src: "/assets/clientes-2/belleza-express.png", alt: "Belleza Express", w: 676, h: 425 },
+  { src: "/assets/clientes-2/continental.png", alt: "Continental", w: 800, h: 425 },
+  { src: "/assets/clientes-2/bosch.png", alt: "Bosch", w: 892, h: 425 },
 ];
 ---
 
@@ -38,7 +44,7 @@ const clientes = [
       {
         clientes.map((c) => (
           <li class="marquee__item">
-            <img src={c.src} alt={c.alt} loading="eager" decoding="async" />
+            <img src={c.src} alt={c.alt} width={c.w} height={c.h} loading="eager" decoding="async" />
           </li>
         ))
       }
@@ -47,7 +53,7 @@ const clientes = [
       {
         clientes.map((c) => (
           <li class="marquee__item">
-            <img src={c.src} alt="" loading="eager" decoding="async" />
+            <img src={c.src} alt="" width={c.w} height={c.h} loading="eager" decoding="async" />
           </li>
         ))
       }
@@ -103,12 +109,17 @@ const clientes = [
     min-width: max-content;
     /* velocidad mas visible (antes 75s se percibia casi estatico) */
     animation: marquee-scroll 45s linear infinite;
+    /* Composita en GPU: el desplazamiento queda parejo y no depende de que el
+       hilo principal este libre. */
+    will-change: transform;
   }
 
-  /* Pausa al hover (sobre todo el carrusel) */
-  .marquee:hover .marquee__track {
-    animation-play-state: paused;
-  }
+  /* NO reponer la pausa al hover.
+     Era la causa #1 de "la banda no se mueve" en PC: la franja cruza el ancho
+     completo de la pagina, y al bajar con la rueda del mouse el cursor se queda
+     quieto mientras la banda pasa por debajo -> :hover se activa solo -> la
+     animacion queda pausada sin que el usuario toque nada. En celular no hay
+     hover, y por eso ahi siempre se veia bien. Reportado por Ariel y Cristian. */
 
   .marquee__item {
     display: flex;
@@ -138,13 +149,32 @@ const clientes = [
 
   @keyframes marquee-scroll {
     from {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
     to {
-      transform: translateX(-100%);
+      transform: translate3d(-100%, 0, 0);
     }
   }
 
-  /* La banda se anima SIEMPRE (decisión del cliente), incluso con
-     "reducir movimiento" activado en el sistema. Se mantiene la pausa al hover. */
+  /* Causa #2 de "la banda no se mueve", y la que afectaba a quien tiene
+     "reducir movimiento" activado en Windows o macOS:
+     global.css tiene un @media (prefers-reduced-motion: reduce) con
+     `*, *::before, *::after { animation-duration: 0.001ms !important }`.
+     Ese comodin tambien alcanzaba a la banda, la animacion terminaba de
+     inmediato y quedaba congelada. El comentario anterior afirmaba que la
+     banda se animaba "SIEMPRE" — era falso, nada la exceptuaba.
+
+     Aca se la exceptua de verdad. Decision explicita de Gabriel: la banda
+     corre si o si. Gana por especificidad: dos clases con el atributo de
+     scope de Astro (0,2,0 o mas) contra el comodin `*` (0,0,0), ambos con
+     !important. Si alguna vez se toca global.css, revisar que siga ganando. */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee .marquee__track {
+      animation-duration: 45s !important;
+      animation-iteration-count: infinite !important;
+      animation-timing-function: linear !important;
+      animation-play-state: running !important;
+      animation-name: marquee-scroll !important;
+    }
+  }
 </style>
