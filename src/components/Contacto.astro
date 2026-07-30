@@ -1,9 +1,8 @@
 ---
-// Datos de contacto: PLACEHOLDERS pendientes de Ariel.
-// Form: reemplazar TU_FORM_ID por el endpoint real de Formspree (formspree.io).
+// Datos de contacto reales (confirmados por el cliente).
+// El formulario envia a /api/contacto (endpoint propio + Resend), ya no a Formspree.
 const WHATSAPP = "56974961585";
-const EMAIL = "contacto@sdisystems.cl"; // <- correo real pendiente
-const FORMSPREE = "https://formspree.io/f/TU_FORM_ID"; // <- endpoint real pendiente
+const EMAIL = "contacto@sdisystems.cl";
 ---
 
 <section class="section section--navy" id="contacto">
@@ -49,23 +48,30 @@ const FORMSPREE = "https://formspree.io/f/TU_FORM_ID"; // <- endpoint real pendi
       </div>
     </div>
 
-    <form class="contacto__form" action={FORMSPREE} method="POST">
+    <form class="contacto__form" action="/api/contacto" method="POST" data-contacto-form novalidate>
       <div class="field">
         <label for="nombre">Nombre</label>
-        <input id="nombre" name="nombre" type="text" required autocomplete="name" />
+        <input id="nombre" name="nombre" type="text" required maxlength="120" autocomplete="name" />
       </div>
       <div class="field">
         <label for="empresa">Empresa</label>
-        <input id="empresa" name="empresa" type="text" autocomplete="organization" />
+        <input id="empresa" name="empresa" type="text" maxlength="160" autocomplete="organization" />
       </div>
       <div class="field">
         <label for="email">Email</label>
-        <input id="email" name="email" type="email" required autocomplete="email" />
+        <input id="email" name="email" type="email" required maxlength="200" autocomplete="email" />
       </div>
       <div class="field">
         <label for="mensaje">Mensaje</label>
-        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+        <textarea id="mensaje" name="mensaje" rows="4" required maxlength="4000"></textarea>
       </div>
+
+      {/* Honeypot: invisible para personas, los bots lo rellenan y ahi los descartamos. */}
+      <div class="contacto__trap" aria-hidden="true">
+        <label for="website">No completar</label>
+        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+
       <label class="contacto__consent">
         <input type="checkbox" name="consentimiento" required />
         <span>
@@ -74,7 +80,10 @@ const FORMSPREE = "https://formspree.io/f/TU_FORM_ID"; // <- endpoint real pendi
           <a href="/politicas-de-datos">Política de Tratamiento de Datos</a>.
         </span>
       </label>
-      <button type="submit" class="btn btn-gold contacto__submit">Enviar mensaje</button>
+      <button type="submit" class="btn btn-gold contacto__submit" data-contacto-submit>
+        Enviar mensaje
+      </button>
+      <p class="contacto__status" data-contacto-status role="status" aria-live="polite" hidden></p>
       <p class="contacto__note">
         Tus datos se usan solo para responder tu consulta y no se comparten con
         terceros. Más información en nuestra
@@ -233,9 +242,127 @@ const FORMSPREE = "https://formspree.io/f/TU_FORM_ID"; // <- endpoint real pendi
     text-align: center;
   }
 
+  /* Honeypot: fuera de pantalla en vez de display:none, porque algunos bots
+     ignoran los campos ocultos con display/visibility. */
+  .contacto__trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .contacto__status {
+    margin: 0;
+    padding: 0.7rem 0.9rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  .contacto__status--ok {
+    background: #e8f3ea;
+    border: 1px solid #b9dcc0;
+    color: #1e5b2c;
+  }
+
+  .contacto__status--error {
+    background: #fdecec;
+    border: 1px solid #f2c2c2;
+    color: #8f2020;
+  }
+
+  .contacto__submit[disabled] {
+    opacity: 0.65;
+    cursor: progress;
+  }
+
   @media (max-width: 860px) {
     .contacto {
       grid-template-columns: 1fr;
     }
   }
 </style>
+
+<script>
+  // Envio por fetch a /api/contacto: el visitante no sale de la pagina y ve el
+  // resultado en el mismo bloque. Si el JS falla, el form conserva action/method
+  // y hace el POST clasico al mismo endpoint.
+  const form = document.querySelector<HTMLFormElement>("[data-contacto-form]");
+
+  if (form) {
+    const boton = form.querySelector<HTMLButtonElement>("[data-contacto-submit]");
+    const estado = form.querySelector<HTMLParagraphElement>("[data-contacto-status]");
+    // Marca de tiempo de carga: el servidor descarta envios instantaneos (bots).
+    const abiertoEn = Date.now();
+
+    const mostrar = (mensaje: string, tipo: "ok" | "error") => {
+      if (!estado) return;
+      estado.textContent = mensaje;
+      estado.classList.remove("contacto__status--ok", "contacto__status--error");
+      estado.classList.add(`contacto__status--${tipo}`);
+      estado.hidden = false;
+    };
+
+    form.addEventListener("submit", async (evento) => {
+      // Validacion nativa primero (el form va con novalidate para controlar el orden).
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      evento.preventDefault();
+      if (boton) {
+        boton.disabled = true;
+        boton.textContent = "Enviando…";
+      }
+
+      const datos = new FormData(form);
+      const cuerpo = {
+        nombre: String(datos.get("nombre") ?? ""),
+        empresa: String(datos.get("empresa") ?? ""),
+        email: String(datos.get("email") ?? ""),
+        mensaje: String(datos.get("mensaje") ?? ""),
+        website: String(datos.get("website") ?? ""),
+        consentimiento: datos.get("consentimiento") !== null,
+        ts: abiertoEn,
+      };
+
+      try {
+        const respuesta = await fetch("/api/contacto", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(cuerpo),
+        });
+        const resultado = await respuesta.json().catch(() => ({}));
+
+        if (respuesta.ok && resultado.ok) {
+          form.reset();
+          mostrar(
+            "¡Gracias! Recibimos tu mensaje y te contactaremos a la brevedad.",
+            "ok"
+          );
+          if (boton) boton.textContent = "Mensaje enviado";
+          return;
+        }
+
+        mostrar(
+          resultado.error ??
+            "No pudimos enviar el mensaje. Intenta de nuevo o escríbenos por WhatsApp.",
+          "error"
+        );
+      } catch {
+        mostrar(
+          "No pudimos enviar el mensaje. Revisa tu conexión o escríbenos por WhatsApp.",
+          "error"
+        );
+      } finally {
+        if (boton && boton.textContent !== "Mensaje enviado") {
+          boton.disabled = false;
+          boton.textContent = "Enviar mensaje";
+        }
+      }
+    });
+  }
+</script>
