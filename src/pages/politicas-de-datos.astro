@@ -3,11 +3,12 @@ import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
-// DATOS LEGALES: PLACEHOLDERS pendientes de confirmar con Ariel (razón social,
-// RUT, domicilio y correo del responsable). Reemplazar antes de publicación final.
-const EMPRESA = "SDI Systems"; // <- razón social/RUT por confirmar
+// DATOS LEGALES reales entregados por el cliente (29-jul-2026).
+// Único pendiente: el correo del responsable de datos (sigue placeholder).
+const EMPRESA = "SDI Systems SpA";
+const RUT = "79.968.750-K";
 const EMAIL = "contacto@sdisystems.cl"; // <- correo real por confirmar
-const DOMICILIO = "Santiago, Chile"; // <- domicilio por confirmar
+const DOMICILIO = "Av. Apoquindo 5950, oficina 15-103, Las Condes, Santiago, Chile";
 const ACTUALIZACION = "julio de 2026";
 ---
 
@@ -32,9 +33,10 @@ const ACTUALIZACION = "julio de 2026";
 
       <h2>1. Responsable del tratamiento</h2>
       <p>
-        El responsable del tratamiento de tus datos es {EMPRESA}, con domicilio
-        en {DOMICILIO}. Para cualquier consulta relacionada con esta política
-        puedes escribirnos a <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+        El responsable del tratamiento de tus datos es <strong>{EMPRESA}</strong>,
+        RUT {RUT}, con domicilio en {DOMICILIO}. Para cualquier consulta
+        relacionada con esta política puedes escribirnos a
+        <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
       </p>
 
       <h2>2. Datos que recopilamos</h2>

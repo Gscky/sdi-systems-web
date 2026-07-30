@@ -1,5 +1,6 @@
 ---
-// Casos de exito — formato desafio -> solucion -> resultado, con metricas.
+// Casos de exito — formato desafio -> solucion -> resultado (sin metricas
+// destacadas: se quitaron para que todas las tarjetas queden del mismo tamano).
 // El muro de clientes se movio al carrusel (Clientes.astro), aqui van solo casos.
 // TEXTOS OFICIALES DEL CLIENTE (doc de Ariel, 26-jul-2026) para Dimerc, Soprole,
 // Belleza Express y Continental — no editar sin pasar por el. `solucion` acepta
@@ -19,7 +20,6 @@ const casos = [
     ],
     resultado:
       "Aumento de productividad, disminución de errores, mayor rapidez en entrega a cliente.",
-    metricas: [],
   },
   {
     cliente: "Soprole",
@@ -34,7 +34,6 @@ const casos = [
     ],
     resultado:
       "Disminución de personal de preparación, y mayor agilidad para la entrega de los pedidos a clientes.",
-    metricas: [],
   },
   {
     // No venia en el doc de Ariel — textos previos, pendiente de confirmar.
@@ -47,10 +46,6 @@ const casos = [
     solucion:
       "5 torres de picking, sorter a rutas, sistemas para fresco (0–4°) y congelado (−28°), y transelevador de 740 posiciones (pallets).",
     resultado: "Centro de distribución con fresco, congelado y pallets integrados.",
-    metricas: [
-      { valor: "740", label: "posiciones de transelevador", ph: false },
-      { valor: "−28°C", label: "operación en congelado", ph: false },
-    ],
   },
   {
     cliente: "Belleza Express",
@@ -63,7 +58,6 @@ const casos = [
       "Rediseño de procesos operativos, sistémicos y de infraestructura de Centro de Distribución de Belleza Express.",
     resultado:
       "Aumento en la capacidad de picking, aumento en la precisión de inventario. Disminución en tiempos de preparación.",
-    metricas: [],
   },
   {
     cliente: "Continental",
@@ -76,9 +70,6 @@ const casos = [
       "Sistema de almacenamiento cúbico AutoStore, diseñado tanto para la capacidad de almacenamiento como de preparación definidas.",
     resultado:
       "Aumento en la capacidad de almacenamiento de un 80% en comparación con sistemas anteriores, y productividad superior a la requerida inicialmente.",
-    metricas: [
-      { valor: "+80%", label: "capacidad de almacenamiento", ph: false },
-    ],
   },
 ];
 ---
@@ -158,16 +149,6 @@ const casos = [
                 </div>
               </dl>
 
-              {caso.metricas.length > 0 && (
-                <ul class="caso__metrics">
-                  {caso.metricas.map((m) => (
-                    <li class="caso__metric">
-                      <span class="caso__metric-num">{m.valor}</span>
-                      <span class="caso__metric-label">{m.label}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </div>
           </article>
         ))
@@ -426,32 +407,6 @@ const casos = [
 
   .caso__label--res {
     color: var(--brand-navy); /* AA sobre blanco (el dorado falla en texto pequeño) */
-  }
-
-  .caso__metrics {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem 2.5rem;
-    margin-top: 1.75rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--line);
-  }
-
-  .caso__metric-num {
-    display: block;
-    font-family: var(--font-head);
-    font-size: 1.7rem;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--brand-navy);
-  }
-
-  .caso__metric-label {
-    display: block;
-    margin-top: 0.35rem;
-    font-size: 0.82rem;
-    color: var(--muted); /* AA sobre blanco */
-    max-width: 16ch;
   }
 
   @media (max-width: 820px) {
