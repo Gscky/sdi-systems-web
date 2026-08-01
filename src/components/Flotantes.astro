@@ -44,11 +44,12 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP}`;
 </div>
 
 <style>
+  /* Esquina inferior derecha (pedido de Gabriel, 31-jul). Antes iban centrados
+     verticalmente al costado. */
   .flotantes {
     position: fixed;
-    right: 0.9rem;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 1.25rem;
+    bottom: 1.25rem;
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
@@ -126,13 +127,11 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP}`;
     }
   }
 
-  /* Movil: se van abajo a la derecha para no tapar el texto a media pantalla */
+  /* Movil: mismo rincon, un poco mas pegados al borde */
   @media (max-width: 720px) {
     .flotantes {
-      top: auto;
-      bottom: 1rem;
-      right: 0.75rem;
-      transform: none;
+      right: 0.9rem;
+      bottom: 0.9rem;
       gap: 0.5rem;
     }
 
