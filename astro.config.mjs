@@ -4,8 +4,11 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  // Dominio definitivo pendiente de Ariel (.cl o .com). Se usa para SEO/canonical y sitemap.
-  site: 'https://sdisystems.cl',
+  // Dominio canonico: en Vercel quedo `www` como principal y el apex
+  // (sdisystems.cl) redirigiendo con 308. El canonical del <head> tiene que
+  // apuntar al mismo destino final, o Google ve dos direcciones para la misma
+  // pagina. Si algun dia se invierte el principal, cambiar esta linea tambien.
+  site: 'https://www.sdisystems.cl',
   // v1 solo espanol. Estructura preparada para agregar i18n (ingles) mas adelante.
 
   // El sitio sigue siendo ESTATICO: todas las paginas se prerenderizan igual que
