@@ -8,6 +8,7 @@ import "@fontsource/space-grotesk/500.css";
 import "@fontsource/space-grotesk/600.css";
 import "@fontsource/space-grotesk/700.css";
 import "../styles/global.css";
+import Flotantes from "../components/Flotantes.astro";
 
 interface Props {
   title?: string;
@@ -43,6 +44,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
   </head>
   <body>
     <slot />
+
+    {/* Botones flotantes de contacto: van en el Layout para que aparezcan
+        tambien en /politicas-de-datos, no solo en la portada. */}
+    <Flotantes />
 
     <script>
       // Animaciones sutiles al hacer scroll (sin librerias).
