@@ -1,30 +1,16 @@
 ---
-// Botones flotantes al costado (WhatsApp + LinkedIn). Pedido de Ariel, jul-2026.
+// Boton flotante de LinkedIn. Pedido de Ariel: quedar SOLO LinkedIn
+// (se quito el de WhatsApp el 2-ago-2026). WhatsApp sigue disponible en la
+// seccion Contacto y en el Footer.
 //
 // LinkedIn de la empresa, confirmado por Gabriel (31-jul-2026). Es el perfil
 // chileno (`sdi-systems-cl`), no el de la homonima estadounidense del mismo
 // rubro. Si queda vacio el boton no se renderiza, para no publicar un enlace
 // equivocado.
 const LINKEDIN = "https://www.linkedin.com/company/sdi-systems-cl/";
-
-const WHATSAPP = "56974961585";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP}`;
 ---
 
 <div class="flotantes" aria-label="Contacto directo">
-  <a
-    class="flotante flotante--wsp"
-    href={WHATSAPP_URL}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Escríbenos por WhatsApp"
-  >
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-      <path d="M12.04 2a9.9 9.9 0 00-8.43 15.16L2 22l4.95-1.3A9.9 9.9 0 1012.04 2zm0 1.8a8.1 8.1 0 11-4.13 15.06l-.3-.18-2.94.77.78-2.86-.2-.31A8.1 8.1 0 0112.04 3.8zm4.64 9.9c-.25-.13-1.47-.72-1.7-.8-.23-.09-.4-.13-.56.13-.17.25-.64.8-.79.96-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.74 2.66 4.22 3.73.59.26 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.23-.17-.48-.3z"/>
-    </svg>
-    <span class="flotante__label">WhatsApp</span>
-  </a>
-
   {
     LINKEDIN && (
       <a
@@ -74,10 +60,6 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP}`;
   .flotante svg {
     width: 24px;
     height: 24px;
-  }
-
-  .flotante--wsp {
-    background: #25d366; /* verde oficial de WhatsApp */
   }
 
   .flotante--in {
