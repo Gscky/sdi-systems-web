@@ -41,9 +41,22 @@ const metricas = [
       Diseñamos, integramos e implementamos centros de distribución llave en
       mano. Transformamos operaciones logísticas en ventajas competitivas.
     </p>
-    <div class="hero__cta" data-reveal style="--reveal-delay:.22s">
-      <a href="#contacto" class="btn btn-gold">Contáctanos</a>
-      <a href="#soluciones" class="btn btn-outline">Ver soluciones</a>
+    <div class="hero__actions" data-reveal style="--reveal-delay:.22s">
+      <div class="hero__cta">
+        <a href="#contacto" class="btn btn-gold">Contáctanos</a>
+        <a href="#soluciones" class="btn btn-outline">Ver soluciones</a>
+      </div>
+      <div class="hero__distribuidor">
+        <span class="hero__distribuidor-label">Distribuidor<br />Exclusivo</span>
+        <img
+          class="hero__distribuidor-logo"
+          src="/assets/logos/element-logic.png"
+          alt="Element Logic"
+          width="1035"
+          height="220"
+          loading="lazy"
+        />
+      </div>
     </div>
 
     <dl class="hero__metrics" data-reveal style="--reveal-delay:.3s">
@@ -163,11 +176,43 @@ const metricas = [
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
   }
 
-  .hero__cta {
+  .hero__actions {
     margin-top: 2.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .hero__cta {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+  /* Badge "Distribuidor Exclusivo" + logo Element Logic, empujado a la derecha */
+  .hero__distribuidor {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-left: auto;
+  }
+
+  .hero__distribuidor-label {
+    font-family: var(--font-head);
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.08;
+    color: var(--white);
+    text-align: left;
+    white-space: nowrap;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
+  }
+
+  .hero__distribuidor-logo {
+    height: 32px;
+    width: auto;
+    filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.35));
   }
 
   /* Métricas sobre el scrim */
@@ -210,6 +255,15 @@ const metricas = [
 
     .hero__watermark img {
       width: clamp(240px, 70vw, 420px);
+    }
+
+    /* En movil el badge baja bajo los botones y se alinea a la izquierda */
+    .hero__distribuidor {
+      margin-left: 0;
+    }
+
+    .hero__distribuidor-logo {
+      height: 28px;
     }
 
     .hero__metrics {
